@@ -8,12 +8,18 @@ const Kontakt = require("../models/kontakt");
 // Validation
 const validateKontaktInput = require("../validation/kontaktValidation");
 
+// @route    GET api/kontakt
+// @desc     Get contact info
+// @access   Public
 router.get("/", (req, res) => {
     Kontakt.find({})
         .then(sponsor => res.json(sponsor))
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 })
 
+// @route    PUT api/kontakt
+// @desc     Update contact info
+// @access   Private
 router.put("/", (req, res) => {
     const { errors, isValid } = validateKontaktInput(req.body);
     if (!isValid) {

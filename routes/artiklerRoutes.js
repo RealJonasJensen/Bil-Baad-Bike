@@ -9,12 +9,20 @@ const Artikel = require("../models/artikler");
 // Input Validation
 const validateArtikelInput = require("../validation/artikelValidation");
 
-
 // @route   GET api/artikler
 // @desc    Get all articles
 // @access  Public
 router.get("/", (req, res) => {
     Artikel.find({})
+        .then(artikler => res.json(artikler))
+        .catch(err => res.status(404).json({ error: "Ingen artikler blev fundet" }))
+})
+
+// @route   GET api/artikler/nylige
+// @desc    Get 6 recent
+// @access  Public
+router.get("/nylige", (req, res) => {
+    Artikel.find({}).limit(6)
         .then(artikler => res.json(artikler))
         .catch(err => res.status(404).json({ error: "Ingen artikler blev fundet" }))
 })

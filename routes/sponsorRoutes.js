@@ -9,14 +9,19 @@ const Sponsor = require("../models/sponsor");
 const validatePriserInput = require("../validation/priserValidation");
 const validateSponsorInput = require("../validation/sponsorValidation");
 
+// @route    GET api/sponsor
+// @desc     Get sponsorprices
+// @access   Public
 router.get("/", (req, res) => {
     Sponsor.find({})
         .then(sponsor => res.json(sponsor))
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 })
 
+// @route    POST api/sponsor/sponsor
+// @desc     Create new sponsor
+// @access   Private
 router.post("/sponsor", (req, res) => {
-
     const { errors, isValid } = validateSponsorInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors)
@@ -34,6 +39,9 @@ router.post("/sponsor", (req, res) => {
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 })
 
+// @route    POST api/sponsor/priser
+// @desc     Create new price
+// @access   Private
 router.post("/priser", (req, res) => {
 
     const { errors, isValid } = validatePriserInput(req.body);

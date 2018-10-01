@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const cors = require("cors");
 
 // Import Routes
 const artiklerRoutes = require("./routes/artiklerRoutes");
@@ -19,6 +20,7 @@ require("./config/passport")(passport);
 app.use(passport.initialize());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors())
 
 // DB
 const keys = require("./config/keys");

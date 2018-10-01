@@ -8,6 +8,9 @@ const Nyhedsbrev = require("../models/nyhedsbrev");
 // Validation
 const validateNyhedsbrevInput = require("../validation/nyhedsbrevValidation");
 
+// @route    POST api/nyhedsbrev
+// @desc     Create new user in nyhedsbrev
+// @access   Public
 router.post("/", (req, res) => {
     const { errors, isValid } = validateNyhedsbrevInput(req.body);
     if (!isValid) {
@@ -23,6 +26,9 @@ router.post("/", (req, res) => {
 
 })
 
+// @route    DELETE api/nyhedsbrev
+// @desc     Remove email from nyhedsbrev
+// @access   Public
 router.delete("/", (req, res) => {
     const { errors, isValid } = validateNyhedsbrevInput(req.body);
     if (!isValid) {
