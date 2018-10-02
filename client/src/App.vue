@@ -28,6 +28,9 @@ export default {
     appHeader: Header,
     appFooter: Footer,
     appSideBar: SideBar
+  },
+  created() {
+    this.$store.dispatch("hentKontakt");
   }
 };
 </script>

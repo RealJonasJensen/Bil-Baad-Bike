@@ -24,13 +24,12 @@ router.get("/", (req, res) => {
 router.get("/kategori/:id", (req, res) => {
     Sponsor.find({})
         .then(sponsor => {
-            console.log(sponsor[0].sponsorer)
+            //console.log(sponsor[0].sponsorer)
             const kategori = sponsor[0].sponsorer.filter((item => item.kategori === req.params.id))
             res.json(kategori)
         })
         .catch(err => console.log(err))
 })
-
 
 // @route    POST api/sponsor/sponsor
 // @desc     Create new sponsor

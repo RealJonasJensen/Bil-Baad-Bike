@@ -11,7 +11,7 @@
         <div class="sidebar-br">
         </div>
             <app-reklame-billede v-for="(item, index) in sponsorBilleder" :objekt="item" :key="index" ></app-reklame-billede>
-            <router-link class="sidebar-link" to="/kontakt" tag="p">Din reklame her?</router-link>
+            <router-link class="sidebar-link" to="/sponsor" tag="p">Din reklame her?</router-link>
     </div>
 </template>
 
@@ -20,7 +20,7 @@ import ReklameBillede from "./ReklameBillede.vue";
 export default {
   computed: {
     sponsorBilleder() {
-      return this.$store.getters.sponsorBilleder;
+      return this.$store.getters.getSponsorBilleder;
     }
   },
   components: {

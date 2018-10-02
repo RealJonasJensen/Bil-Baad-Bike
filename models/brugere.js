@@ -23,11 +23,11 @@ const brugerSchema = new mongoose.Schema({
     },
     billede: {
         type: String,
-        required: true
+        default: "no_image.png"
     },
     tekst: {
         type: String,
-        required: true
+        default: "Hej, jeg er helt ny her!"
     },
     oprettet: {
         type: Date,

@@ -2,9 +2,17 @@
     <footer>
         <div class="footer-adresse">
             <h4>Adresse</h4>
+            <p>{{kontakt.navn}}</p>
+            <p>{{kontakt.adresse}}</p>
+            <p>{{kontakt.postkode}}</p>
+            <p>{{kontakt.land}}</p>
         </div>
         <div class="footer-kontakt">
             <h4>Kontakt</h4>
+            <p>Telefon: {{kontakt.telefon}}</p>
+            <p>Fax: {{kontakt.fax}}</p>
+            <p>E-mail: {{kontakt.email}}</p>
+            <router-link class="footer-login" to="/login">LOGIN</router-link>
         </div>
         <div class="footer-nyhedsbrev">
             <h4>Nyhedsbrev</h4>
@@ -16,6 +24,13 @@
 </template>
 
 <script>
+export default {
+  computed: {
+    kontakt() {
+      return this.$store.getters.getKontakt;
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -62,7 +77,13 @@ input {
   color: rgb(119, 119, 119);
 }
 
+.footer-login {
+  color: rgb(119, 119, 119);
+}
+
 p {
   color: rgb(255, 255, 255);
+  font-size: 13px;
+  padding: 3px 0;
 }
 </style>

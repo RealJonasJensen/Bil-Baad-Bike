@@ -11,18 +11,37 @@
                 <router-link to="/arkiv" tag="li" activeClass="aktiv">ARKIVET</router-link>
                 <router-link to="/kontakt" tag="li" activeClass="aktiv">KONTAKT</router-link>
                 <router-link to="/redaktionen" tag="li" activeClass="aktiv">REDAKTIONEN</router-link>
+                <router-link v-if="login" to="/admin" tag="li" activeClass="aktiv">ADMIN</router-link>
+                <a v-if="login" @click="onLogout">LOGOUT</a>
+                <p v-if="login">{{bruger.navn.split(" ")[0].toUpperCase()}}</p>
             </ul>
         </nav>
     </header>
 </template>
 
 <script>
+export default {
+  methods: {
+    onLogout() {
+      this.$store.dispatch("logout");
+    }
+  },
+  computed: {
+    login() {
+      return this.$store.getters.isAuthenticated;
+    },
+    bruger() {
+      return this.$store.getters.bruger;
+    }
+  }
+};
 </script>
 
 <style scoped>
 header {
   font-family: "Oswald", sans-serif;
 }
+
 img {
   padding: 30px 10px;
 }
@@ -35,13 +54,19 @@ ul {
   border-bottom: rgb(255, 192, 0) 5px solid;
 }
 
-li {
+li,
+a,
+p {
   padding: 15px 15px;
   color: rgb(255, 255, 255);
   font-size: 13px;
 }
+p {
+  text-align: right;
+}
 
-li:hover {
+li:hover,
+a:hover {
   background-color: rgb(255, 192, 0);
   cursor: pointer;
 }

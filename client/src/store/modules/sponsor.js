@@ -3,6 +3,7 @@ import store from "../store";
 
 const state = {
     sponsorBilleder: [],
+    sponsor: {},
     sponsorLoading: false,
     sponsorError: {}
 }
@@ -13,10 +14,26 @@ const mutations = {
     },
     setSponsorBilleder(state, sponsor) {
         state.sponsorBilleder = sponsor;
+    },
+    setSponsor(state, sponsor) {
+        state.sponsor = sponsor;
     }
 }
 
 const actions = {
+    hentSponsor({ commit }) {
+        commit("setSponsorLoading");
+        axios.get("/sponsor")
+            .then(res => {
+                commit("setSponsorLoading");
+                console.log(res.data)
+                commit("setSponsor", res.data[0])
+            })
+            .catch(err => {
+                commit("setSponsorLoading");
+                console.log(err)
+            })
+    },
     hentSponsorBilleder({ commit }, payload) {
         commit("setSponsorLoading");
         axios.get("/sponsor/kategori/" + payload)
@@ -33,8 +50,11 @@ const actions = {
 }
 
 const getters = {
-    sponsorBilleder: state => {
-        return state.sponsorBilleder
+    getSponsorBilleder: state => {
+        return state.sponsorBilleder;
+    },
+    getSponsor: state => {
+        return state.sponsor;
     }
 }
 

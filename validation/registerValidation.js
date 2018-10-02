@@ -9,8 +9,6 @@ module.exports = validateRegisterInput = (data) => {
     data.password = !isEmpty(data.password) ? data.password : "";
     data.password2 = !isEmpty(data.password2) ? data.password2 : "";
     data.type = !isEmpty(data.type) ? data.type : "";
-    data.billede = !isEmpty(data.billede) ? data.billede : "";
-    data.tekst = !isEmpty(data.tekst) ? data.tekst : "";
 
 
     if (Validator.isEmpty(data.navn)) {
@@ -24,12 +22,6 @@ module.exports = validateRegisterInput = (data) => {
     }
     if (Validator.isEmpty(data.type)) {
         errors.type = "Type kan ikke være tom";
-    }
-    if (Validator.isEmpty(data.billede)) {
-        errors.billede = "Billede kan ikke være tom";
-    }
-    if (Validator.isEmpty(data.tekst)) {
-        errors.tekst = "Tekst kan ikke være tom";
     }
     if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
         errors.password = "Password skal være mellem 6 og 30 tegn";

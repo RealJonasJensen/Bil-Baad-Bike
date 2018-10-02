@@ -19,7 +19,6 @@ router.post("/register", passport.authenticate("jwt", { session: false }), async
     if (!isValid) {
         return res.status(400).json(errors)
     }
-
     await createUser();
     function createUser() {
         const newBruger = new Bruger({
@@ -27,11 +26,11 @@ router.post("/register", passport.authenticate("jwt", { session: false }), async
             password: req.body.password,
             email: req.body.email,
             type: req.body.type,
-            redaktion: [],
+            redaktion: req.body.redaktion,
             billede: req.body.billede,
             tekst: req.body.tekst
-
         });
+
         // Hash password
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newBruger.password, salt, (err, hash) => {
@@ -43,7 +42,6 @@ router.post("/register", passport.authenticate("jwt", { session: false }), async
                     .catch(err => console.log(err));
             })
         })
-
     }
 })
 
@@ -51,9 +49,7 @@ router.post("/register", passport.authenticate("jwt", { session: false }), async
 // @desc     Login User / Get JwToken
 // @access   Public
 router.post("/login", (req, res) => {
-
     const { errors, isValid } = validateLoginInput(req.body);
-
     //Check Validation
     if (!isValid) {
         // console.log(errors)
@@ -84,11 +80,16 @@ router.post("/login", (req, res) => {
                             (err, token) => {
                                 if (err) {
                                     console.log(err);
+                                } else {
+                                    //console.log(bruger)
+                                    res.json({
+                                        success: true,
+                                        token: "Bearer " + token,
+                                        type: bruger.type,
+                                        redaktion: bruger.redaktion,
+                                        navn: bruger.navn,
+                                    })
                                 }
-                                res.json({
-                                    success: true,
-                                    token: "Bearer " + token
-                                })
                             }
                         );
                     } else {
