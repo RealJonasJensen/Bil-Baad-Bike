@@ -60,7 +60,6 @@ router.post("/login", (req, res) => {
     const password = req.body.password;
 
     //Find User
-
     Bruger.findOne({ email })
         .then(bruger => {
             if (!bruger) {
@@ -98,6 +97,15 @@ router.post("/login", (req, res) => {
                     }
                 })
         })
+})
+
+// @route    GET api/brugere/redaktion
+// @desc     Get redaktionen
+// @access   Public
+router.get("/redaktionen", (req, res) => {
+    Bruger.find({ type: "redaktoer" }, { navn: 1, billede: 1, tekst: 1, email: 1, redaktion: 1 })
+        .then(brugere => res.json(brugere))
+        .catch(err => res.status(404).json({ error: "Ingen redaktion fundet" }))
 })
 
 module.exports = router;

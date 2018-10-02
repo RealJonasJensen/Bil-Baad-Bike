@@ -11,6 +11,7 @@ import Login from "./components/Login/Login.vue";
 import Admin from "./components/Admin/Admin.vue";
 import Register from "./components/Admin/Register/Register.vue";
 import Redaktion from "./components/Redaktion/Redaktion.vue";
+import VisEn from "./components/Artikel/VisEn.vue";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,7 @@ export const routes = [
     { path: "/kontakt", component: Kontakt },
     { path: "/sponsor", component: Sponsor },
     { path: "/redaktionen", component: Redaktion },
+    { path: "/:typeId/:id", component: VisEn },
     {
         path: "/login", component: Login, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next("/admin") } else { next() }

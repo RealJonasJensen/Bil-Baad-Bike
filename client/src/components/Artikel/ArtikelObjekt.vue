@@ -8,7 +8,7 @@
 
         <p v-if="!sti || sti === 'arkiv'" class="artikel-kategori" ><font-awesome-icon class="artikel-icon" icon="tag" />{{objekt.kategori.toUpperCase()}}</p>
 
-        <div class="artikel-btn">LÆS MERE</div>
+        <router-link :to="`/${objekt.kategori}/${objekt._id}`" tag="div" class="artikel-btn">LÆS MERE</router-link>
     </div>
 </template>
 
@@ -106,7 +106,7 @@ p {
   font-family: "Oswald", sans-serif;
 }
 .artikel-dato {
-  font-size: 14px;
+  font-size: 13px;
   display: inline;
   margin-right: 4px;
 }

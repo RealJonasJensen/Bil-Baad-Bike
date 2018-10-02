@@ -6,6 +6,7 @@ const state = {
     kategori: [],
     alle: [],
     artiklerLoading: false,
+    artikel: {},
     artiklerError: {}
 }
 
@@ -24,10 +25,25 @@ const mutations = {
     },
     setError(state, error) {
         state.error = error;
+    },
+    setEn(state, artikel) {
+        state.artikel = artikel;
     }
 }
 
 const actions = {
+    hentEn({ commit }, payload) {
+        commit("setArtiklerLoading")
+        axios.get("/artikler/" + payload)
+            .then(res => {
+                commit("setArtiklerLoading")
+                commit("setEn", res.data)
+            })
+            .catch(err => {
+                commit("setArtiklerLoading")
+                console.log(err)
+            })
+    },
     hentAlle({ commit }) {
         commit("setArtiklerLoading")
         axios.get("/artikler")
@@ -78,6 +94,9 @@ const getters = {
     },
     alle: state => {
         return state.alle;
+    },
+    artikel: state => {
+        return state.artikel;
     }
 }
 

@@ -31,7 +31,7 @@ router.get("/nylige", (req, res) => {
 // @desc    Get article by id
 // @access  Public
 router.get("/:id", (req, res) => {
-    Artikel.findById(req.params.id)
+    Artikel.findById(req.params.id).populate("forfatter", ["billede", "navn", "type", "tekst"])
         .then(artikel => res.json(artikel))
         .catch(err => res.status(404).json({ error: "Ingen artikel blev fundet" }))
 })
@@ -48,7 +48,7 @@ router.get("/kategori/:id", (req, res) => {
 // @route   POST api/artikler
 // @desc    Create new article
 // @access  Private
-router.post("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+router.post("/", (req, res) => {
     const { errors, isValid } = validateArtikelInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors)

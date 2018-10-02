@@ -55,7 +55,7 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: 66.6% 33.3%;
+  grid-template-columns: 65% 35%;
 }
 
 .main {
