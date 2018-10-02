@@ -18,6 +18,20 @@ router.get("/", (req, res) => {
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 })
 
+// @route    GET api/sponsor/kategori/:id
+// @desc     Get sponsor by type
+// @access   Public
+router.get("/kategori/:id", (req, res) => {
+    Sponsor.find({})
+        .then(sponsor => {
+            console.log(sponsor[0].sponsorer)
+            const kategori = sponsor[0].sponsorer.filter((item => item.kategori === req.params.id))
+            res.json(kategori)
+        })
+        .catch(err => console.log(err))
+})
+
+
 // @route    POST api/sponsor/sponsor
 // @desc     Create new sponsor
 // @access   Private
@@ -48,7 +62,6 @@ router.post("/priser", (req, res) => {
     if (!isValid) {
         return res.status(400).json(errors)
     }
-
 
     Sponsor.findById("5bb1f8cb5ad48f261a8c8dda")
         .then(sponsor => {

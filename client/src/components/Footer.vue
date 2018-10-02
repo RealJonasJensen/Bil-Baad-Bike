@@ -53,6 +53,11 @@ input {
   cursor: pointer;
 }
 
+.footer-btn:hover {
+  background-color: rgb(128, 28, 28);
+  color: rgb(240, 240, 240);
+}
+
 .footer-btn p {
   color: rgb(119, 119, 119);
 }

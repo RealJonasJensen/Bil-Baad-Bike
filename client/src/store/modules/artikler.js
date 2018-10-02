@@ -3,28 +3,66 @@ import store from "../store";
 
 const state = {
     seneste: [],
-    loading: false
+    kategori: [],
+    alle: [],
+    artiklerLoading: false,
+    artiklerError: {}
 }
 
 const mutations = {
     setNylige(state, seneste) {
         state.seneste = seneste;
     },
-    setLoading(state) {
-        state.loading = !state.loading;
+    setArtiklerLoading(state) {
+        state.artiklerLoading = !state.artiklerLoading;
+    },
+    setKategori(state, kategori) {
+        state.kategori = kategori;
+    },
+    setAlle(state, alle) {
+        state.alle = alle;
+    },
+    setError(state, error) {
+        state.error = error;
     }
 }
 
 const actions = {
+    hentAlle({ commit }) {
+        commit("setArtiklerLoading")
+        axios.get("/artikler")
+            .then(res => {
+                commit("setArtiklerLoading")
+                commit("setAlle", res.data)
+            })
+            .catch(err => {
+                commit("setArtiklerLoading")
+                console.log(err)
+            })
+    },
+    hentKategori({ commit }, payload) {
+        commit("setArtiklerLoading")
+        console.log(payload)
+        axios.get("/artikler/kategori/" + payload)
+            .then(res => {
+                commit("setArtiklerLoading")
+                commit("setKategori", res.data)
+            })
+            .catch(err => {
+                commit("setArtiklerLoading")
+                //commit("setError", err.response.data)
+            })
+    },
     hentSeneste({ commit }) {
-        commit("setLoading")
+        commit("setArtiklerLoading")
         axios.get("/artikler/nylige")
             .then(res => {
-                commit("setLoading")
+                commit("setArtiklerLoading")
                 commit("setNylige", res.data)
             })
             .catch(err => {
-                commit("setLoading")
+                commit("setArtiklerLoading")
+                //commit("setError", err.response.data)
                 console.log(err)
             }
             )
@@ -34,6 +72,12 @@ const actions = {
 const getters = {
     seneste: state => {
         return state.seneste;
+    },
+    kategori: state => {
+        return state.kategori;
+    },
+    alle: state => {
+        return state.alle;
     }
 }
 

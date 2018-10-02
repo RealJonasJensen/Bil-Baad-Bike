@@ -5,7 +5,7 @@
         <nav>
             <ul>
                 <router-link to="/" tag="li" activeClass="aktiv" exact> <span><font-awesome-icon icon="home" /></span> FORSIDE</router-link>
-                <router-link to="/biler" tag="li" activeClass="aktiv">BILER</router-link>
+                <router-link to="/bil" tag="li" activeClass="aktiv">BILER</router-link>
                 <router-link to="/baad" tag="li" activeClass="aktiv">BÅDE</router-link>
                 <router-link to="/bike" tag="li" activeClass="aktiv">BIKE'S</router-link>
                 <router-link to="/arkiv" tag="li" activeClass="aktiv">ARKIVET</router-link>

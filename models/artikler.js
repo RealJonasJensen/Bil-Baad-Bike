@@ -10,8 +10,8 @@ const artiklerSchema = new mongoose.Schema({
         required: true
     },
     forfatter: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Bruger",
     },
     klik: {
         type: Number,

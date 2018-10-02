@@ -8,11 +8,25 @@
         <div class="sidebar-br"></div>
         <div></div>
         <h2>SPONSOR</h2>
-        <div class="sidebar-br"></div>
+        <div class="sidebar-br">
+        </div>
+            <app-reklame-billede v-for="(item, index) in sponsorBilleder" :objekt="item" :key="index" ></app-reklame-billede>
+            <router-link class="sidebar-link" to="/kontakt" tag="p">Din reklame her?</router-link>
     </div>
 </template>
 
 <script>
+import ReklameBillede from "./ReklameBillede.vue";
+export default {
+  computed: {
+    sponsorBilleder() {
+      return this.$store.getters.sponsorBilleder;
+    }
+  },
+  components: {
+    appReklameBillede: ReklameBillede
+  }
+};
 </script>
 
 <style scoped>
@@ -21,6 +35,12 @@
   background-color: rgb(240, 240, 240);
   font-family: "Oswald", sans-serif;
   padding: 25px;
+}
+
+.sidebar-link {
+  text-align: center;
+  color: rgb(119, 119, 119);
+  cursor: pointer;
 }
 
 .sidebar-search {

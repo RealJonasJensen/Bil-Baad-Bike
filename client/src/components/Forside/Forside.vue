@@ -3,16 +3,16 @@
         <h1>SENESTE ARTIKLER</h1>
         <div class="forside-br" ></div>
         <div class="forside-indhold">
-            <app-forside-objekt v-for="(item, index) in seneste" :key="index" :objekt="item"  ></app-forside-objekt>
+            <app-artikel-objekt v-for="(item, index) in seneste" :key="index" :objekt="item"  ></app-artikel-objekt>
         </div>
     </div>
 </template>
 
 <script>
-import ForsideObjekt from "./ForsideObjekt";
+import ArtikelObjekt from "../Artikel/ArtikelObjekt";
 export default {
   components: {
-    appForsideObjekt: ForsideObjekt
+    appArtikelObjekt: ArtikelObjekt
   },
   created() {
     this.$store.dispatch("hentSeneste");
@@ -29,6 +29,7 @@ export default {
 h1 {
   font-family: "Oswald", sans-serif;
   color: rgb(53, 53, 53);
+  font-size: 36px;
 }
 
 .forside-br {
