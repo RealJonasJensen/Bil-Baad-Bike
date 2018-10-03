@@ -9,6 +9,7 @@ const state = {
         type: false,
         redaktion: [],
         navn: null,
+        id: null
     },
     loginErrors: {}
 }
@@ -19,6 +20,7 @@ const mutations = {
         state.isAuthenticated = true;
         state.bruger.type = data.type;
         state.bruger.navn = data.navn;
+        state.bruger.id = data.id;
         state.bruger.redaktion = data.redaktion;
     },
     fjernBruger(state) {
@@ -35,7 +37,7 @@ const actions = {
     login({ commit }, payload) {
         axios.post("/brugere/login", payload)
             .then(res => {
-                //console.log(res.data)
+                console.log(res.data)
                 commit("setBruger", res.data)
                 router.replace("/admin");
             })

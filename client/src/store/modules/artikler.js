@@ -32,12 +32,37 @@ const mutations = {
 }
 
 const actions = {
-    hentEn({ commit }, payload) {
+    opretNy({ commit }, payload) {
+        commit("setArtiklerLoading")
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
+        axios.post("/artikler", payload)
+            .then(res => {
+                commit("setArtiklerLoading")
+                console.log(res.data)
+            })
+            .catch(err => {
+                commit("setArtiklerLoading")
+                console.log(err)
+            })
+    },
+    opdaterKlik({ commit }) {
+        const id = this.state.artikler.artikel._id;
+        const data = {
+            klik: this.state.artikler.artikel.klik + 1,
+        }
+        axios.put("/artikler/klik/" + id, data)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => console.log(err))
+    },
+    hentEn({ commit, dispatch }, payload) {
         commit("setArtiklerLoading")
         axios.get("/artikler/" + payload)
             .then(res => {
                 commit("setArtiklerLoading")
                 commit("setEn", res.data)
+                dispatch("opdaterKlik")
             })
             .catch(err => {
                 commit("setArtiklerLoading")

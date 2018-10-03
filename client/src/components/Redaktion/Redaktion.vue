@@ -5,7 +5,7 @@
         <div class="redaktion-br"></div>
         <div class="redaktion-indhold">
             <h2>Biler</h2>
-            <div v-for="(item, index) in redaktionBil" :key="index" class="redaktion-person">
+            <div v-for="(item) in redaktionBil" :key="item.id" class="redaktion-person">
                 <div class="person-img">
                     <img :src="'../../../src/assets/redaktion/' + item.billede" :alt="item.navn">
                 </div>
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <h2>Både</h2>
-            <div v-for="(item, index) in redaktionBaad" :key="index" class="redaktion-person">
+            <div v-for="(item) in redaktionBaad" :key="item.id" class="redaktion-person">
                 <div class="person-img">
                     <img :src="'../../../src/assets/redaktion/' + item.billede" :alt="item.navn">
                 </div>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <h2>Bike's</h2>
-            <div v-for="(item, index) in redaktionBike" :key="index" class="redaktion-person">
+            <div v-for="(item) in redaktionBike" :key="item.id" class="redaktion-person">
                 <div class="person-img">
                     <img :src="'../../../src/assets/redaktion/' + item.billede" :alt="item.navn">
                 </div>

@@ -5,20 +5,27 @@
         <div class="artikel-br"></div>
         <div class="artikel-indhold">
             <div>
-                <p class="artikel-dato" ><font-awesome-icon class="artikel-icon" icon="clock" />{{dato}}</p>
-                <p class="artikel-kommentarer"> <font-awesome-icon class="artikel-icon" icon="comments" />{{artikel.kommentarer.length}} KOMMENTARER</p>
-                <p class="artikel-visninger"><font-awesome-icon class="artikel-icon" icon="eye" />{{artikel.klik}} VISNINGER</p>
+                <div class="artikel-info" >
+                    <p class="artikel-dato" ><font-awesome-icon class="artikel-icon" icon="clock" />{{dato}}</p>
+                    <p class="artikel-kommentarer"> <font-awesome-icon class="artikel-icon" icon="comments" />{{artikel.kommentarer.length}} KOMMENTARER</p>
+                    <p class="artikel-visninger"><font-awesome-icon class="artikel-icon" icon="eye" />{{artikel.klik + 1}} {{artikel.klik + 1 === 1 ? "VISNING" : "VISNINGER"}}</p>
+                </div>
                 <div class="artikel-tekst" v-html="artikel.tekst"></div>
                 <div class="artikel-forfatter">
                     <div class="forfatter-img">
                         <img :src="'../../../src/assets/redaktion/' + artikel.forfatter.billede" :alt="artikel.forfatter.navn">
                     </div>
                     <div>
-                        <p>af {{artikel.forfatter.navn}} <span>Redaktør</span></p>
+                        <p>af {{artikel.forfatter.navn}} <span>{{artikel.forfatter.type === "admin" ? "Admin" : "Redaktør"}}</span></p>
                         <p class="forfatter-tekst" >{{artikel.forfatter.tekst}}</p>
                     </div>
                 </div>
             </div>
+        </div>
+        <h1>KOMMENTARER</h1>
+        <div class="artikel-br"></div>
+        <div class="kommentarer-indhold">
+
         </div>
     </div>
 </template>
@@ -120,6 +127,10 @@ h1 {
 .artikel-indhold  {
   display: grid;
   grid-template-columns: 50% 50%;
+}
+
+.artikel-info {
+  padding: 10px 0;
 }
 
 .artikel-tekst {

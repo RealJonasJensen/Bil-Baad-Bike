@@ -87,6 +87,7 @@ router.post("/login", (req, res) => {
                                         type: bruger.type,
                                         redaktion: bruger.redaktion,
                                         navn: bruger.navn,
+                                        id: bruger._id
                                     })
                                 }
                             }

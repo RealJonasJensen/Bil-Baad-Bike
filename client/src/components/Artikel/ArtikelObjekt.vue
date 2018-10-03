@@ -1,10 +1,10 @@
 <template>
     <div :style="artikelObjektStyle" class="artikel-objekt" >
-        <h2>{{objekt.overskrift}}</h2>
+        <h2>{{overskrift}}</h2>
         <p class="artikel-dato" ><font-awesome-icon class="artikel-icon" icon="clock" />{{dato}}</p>
         <p class="artikel-kommentarer"> <font-awesome-icon class="artikel-icon" icon="comments" />{{kommentarer}} KOMMENTARER</p>
-        <p class="artikel-visninger"><font-awesome-icon class="artikel-icon" icon="eye" />{{objekt.klik}} VISNINGER</p>
-        <p class="artikel-tekst" >{{objekt.tekst}}</p>
+        <p class="artikel-visninger"><font-awesome-icon class="artikel-icon" icon="eye" />{{objekt.klik}} {{objekt.klik === 1 ? "VISNING" : "VISNINGER"}}</p>
+        <p class="artikel-tekst" >{{tekst}}</p>
 
         <p v-if="!sti || sti === 'arkiv'" class="artikel-kategori" ><font-awesome-icon class="artikel-icon" icon="tag" />{{objekt.kategori.toUpperCase()}}</p>
 
@@ -77,6 +77,24 @@ export default {
     kommentarer() {
       let kommentarer = this.mutedobjekt.kommentarer;
       return kommentarer.length;
+    },
+    tekst() {
+      //console.log(this.$route.path);
+      if (this.mutedobjekt.tekst.length > 500 && this.$route.path !== "/") {
+        return this.mutedobjekt.tekst.substring(0, 499) + " ...";
+      } else if (
+        this.mutedobjekt.tekst.length > 200 &&
+        this.$route.path === "/"
+      ) {
+        return this.mutedobjekt.tekst.substring(0, 199) + " ...";
+      }
+      return this.mutedobjekt.tekst;
+    },
+    overskrift() {
+      if (this.mutedobjekt.overskrift.length > 28) {
+        return this.mutedobjekt.overskrift.substring(0, 27) + " ...";
+      }
+      return this.mutedobjekt.overskrift;
     }
   }
 };

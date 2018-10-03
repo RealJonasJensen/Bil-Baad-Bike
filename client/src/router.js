@@ -12,6 +12,7 @@ import Admin from "./components/Admin/Admin.vue";
 import Register from "./components/Admin/Register/Register.vue";
 import Redaktion from "./components/Redaktion/Redaktion.vue";
 import VisEn from "./components/Artikel/VisEn.vue";
+import OpretNy from "./components/Admin/OpretNy/OpretNy.vue";
 
 Vue.use(VueRouter);
 
@@ -38,6 +39,11 @@ export const routes = [
     {
         path: "/register", component: Register, beforeEnter: (to, from, next) => {
             if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    },
+    {
+        path: "/opret", component: OpretNy, beforeEnter: (to, from, next) => {
+            if (store.state.login.isAuthenticated) { next() } else { next("/") }
         }
     }
 ]

@@ -48,7 +48,7 @@ router.get("/kategori/:id", (req, res) => {
 // @route   POST api/artikler
 // @desc    Create new article
 // @access  Private
-router.post("/", (req, res) => {
+router.post("/", passport.authenticate("jwt", { session: false }), (req, res) => {
     const { errors, isValid } = validateArtikelInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors)
@@ -83,6 +83,17 @@ router.put("/:id", passport.authenticate("jwt", { session: false }), (req, res) 
     if (!isValid) {
         return res.status(400).json(errors)
     }
+    Artikel.findOneAndUpdate({ _id: req.params.id }, req.body)
+        .then(artikel => {
+            res.json(artikel)
+        })
+        .catch(err => res.status(404).json(err))
+})
+
+// @route   PUT api/artikler/klik/:id
+// @desc    Update views
+// @access  Public
+router.put("/klik/:id", (req, res) => {
     Artikel.findOneAndUpdate({ _id: req.params.id }, req.body)
         .then(artikel => {
             res.json(artikel)
