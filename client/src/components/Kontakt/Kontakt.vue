@@ -57,6 +57,9 @@ export default {
     kontakt() {
       return this.$store.getters.getKontakt;
     }
+  },
+  created() {
+    this.$store.dispatch("mestSete");
   }
 };
 </script>

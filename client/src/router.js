@@ -15,6 +15,7 @@ import VisEn from "./components/Artikel/VisEn.vue";
 import OpretNy from "./components/Admin/OpretNy/OpretNy.vue";
 import Rediger from "./components/Admin/Rediger/Rediger.vue";
 import RedigerEn from "./components/Admin/Rediger/RedigerEn.vue";
+import Soeg from "./components/Soeg/Soeg.vue";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,7 @@ export const routes = [
     { path: "/sponsor", component: Sponsor },
     { path: "/redaktionen", component: Redaktion },
     { path: "/rediger", component: Rediger },
+    { path: "/soeg/:term", component: Soeg },
     {
         path: "/login", component: Login, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next("/admin") } else { next() }

@@ -16,18 +16,39 @@
         </div>
         <div class="footer-nyhedsbrev">
             <h4>Nyhedsbrev</h4>
-            <input type="text" placeholder="E-mailadresse" >
-            <div class="footer-btn">TILMELD</div>
-            <div class="footer-btn">AFMELD</div>
+            <input v-model="email" type="text" placeholder="E-mailadresse" >
+            
+            <button :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" class="footer-btn" @click="onTilmeld" >TILMELD</button>
+            <button :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" class="footer-btn" @click="onAfmeld" >AFMELD</button>
         </div>
     </footer>
 </template>
 
 <script>
+import { required, email } from "vuelidate/lib/validators";
 export default {
+  data() {
+    return {
+      email: ""
+    };
+  },
+  methods: {
+    onTilmeld() {
+      console.log("Tilmeld" + this.email);
+    },
+    onAfmeld() {
+      console.log("Afmeld" + this.email);
+    }
+  },
   computed: {
     kontakt() {
       return this.$store.getters.getKontakt;
+    }
+  },
+  validations: {
+    email: {
+      email,
+      required
     }
   }
 };
@@ -57,20 +78,36 @@ input {
   border-radius: 2px;
 }
 
-.footer-btn {
-  display: inline-block;
+button {
   font-family: "Oswald", sans-serif;
   background-color: rgb(230, 230, 230);
-  color: rgb(53, 53, 53);
-  padding: 5px 20px;
-  margin: 10px 0;
-  margin-right: 10px;
-  cursor: pointer;
+  color: rgb(206, 206, 206);
+  text-align: center;
+  padding: 8px 25px;
+  margin: 10px 0 50px;
+  border: none;
+  outline: none;
 }
 
-.footer-btn:hover {
+.validKnap {
+  font-family: "Oswald", sans-serif;
+  background-color: rgb(230, 230, 230);
+  color: rgb(119, 119, 119);
+  text-align: center;
+  padding: 8px 25px;
+  margin: 10px 0 50px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.validKnap:hover {
   background-color: rgb(128, 28, 28);
   color: rgb(240, 240, 240);
+}
+.invalid {
+  border: solid 2px rgb(255, 83, 83);
+  transition: all 0.5s;
 }
 
 .footer-btn p {

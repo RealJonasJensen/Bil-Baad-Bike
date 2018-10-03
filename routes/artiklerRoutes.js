@@ -5,6 +5,7 @@ const passport = require("passport");
 
 // Models
 const Artikel = require("../models/artikler");
+const Bruger = require("../models/brugere");
 
 // Input Validation
 const validateArtikelInput = require("../validation/artikelValidation");
@@ -32,6 +33,24 @@ router.get("/nylige", (req, res) => {
 // @access  Public
 router.get("/klik", (req, res) => {
     Artikel.find({}).sort({ klik: -1 }).limit(6)
+        .then(artikler => res.json(artikler))
+        .catch(err => res.status(404).json({ error: "Ingen artikler fundet" }))
+})
+
+
+// @route   POST api/artikler/soeg/
+// @desc    Search
+// @access  Public
+router.post("/soeg", (req, res) => {
+    // console.log(req.body.soeg)
+    let soeg = req.body.soeg;
+    if (soeg === "båd") { soeg = "baad" }
+    Artikel.find()
+        .populate("forfatter", ["billede", "navn", "type", "tekst"])
+        //.or({ forfatter: { $regex: soeg } })
+        .or({ overskrift: { $regex: soeg } })
+        .or({ tekst: { $regex: soeg } })
+        .or({ kategori: { $regex: soeg } })
         .then(artikler => res.json(artikler))
         .catch(err => res.status(404).json({ error: "Ingen artikler fundet" }))
 })
@@ -136,5 +155,8 @@ router.put("/klik/:id", (req, res) => {
         })
         .catch(err => res.status(404).json(err))
 })
+
+
+
 
 module.exports = router;

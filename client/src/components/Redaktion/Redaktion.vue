@@ -75,6 +75,7 @@ export default {
   },
   created() {
     this.$store.dispatch("hentRedaktion");
+    this.$store.dispatch("mestSete");
   }
 };
 </script>

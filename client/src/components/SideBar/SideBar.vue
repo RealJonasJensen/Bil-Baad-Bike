@@ -1,8 +1,10 @@
 <template>
     <div class="sidebar">
         <div class="sidebar-search">
-            <input type="text" placeholder="Søg i arkivet..."> 
-            <div class="sidebar-search-btn" ><font-awesome-icon class="search-icon" icon="search" /></div>
+            <form action="">
+                <input v-model="term" type="text" placeholder="Søg i arkivet..."> 
+                <button :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" class="sidebar-search-btn" @click.prevent="onSubmit" ><font-awesome-icon class="search-icon" icon="search" /></button>
+            </form>
         </div>
         <h2>MEST LÆSTE</h2>
         <div class="sidebar-br"></div>
@@ -20,8 +22,26 @@
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
 import ReklameBillede from "./ReklameBillede.vue";
 export default {
+  data() {
+    return {
+      term: ""
+    };
+  },
+  methods: {
+    onSubmit() {
+      //console.log(this.$route.path.split("/")[1]);
+      if (this.$route.path.split("/")[1] === "soeg") {
+        const data = { soeg: this.term };
+        this.$router.replace("/soeg/" + data.soeg);
+        this.$store.dispatch("hentSoeg", data);
+      } else {
+        this.$router.replace("/soeg/" + this.term);
+      }
+    }
+  },
   computed: {
     sponsorBilleder() {
       return this.$store.getters.getSponsorBilleder;
@@ -32,6 +52,11 @@ export default {
   },
   components: {
     appReklameBillede: ReklameBillede
+  },
+  validations: {
+    term: {
+      required
+    }
   }
 };
 </script>
@@ -50,26 +75,26 @@ export default {
   cursor: pointer;
 }
 
-.sidebar-search {
-  display: grid;
-  grid-template-columns: 60% 30%;
-  grid-gap: 10%;
-}
-
 input {
-  padding: 3%;
+  padding: 8px;
   outline: none;
 }
 
 .sidebar-search-btn {
-  padding: 10px 5%;
+  padding: 10px 20px;
+  margin-left: 20px;
   background-color: rgb(230, 230, 230);
+
+  border: none;
+  outline: none;
+}
+
+.validKnap {
   cursor: pointer;
 }
 
 .search-icon {
   font-size: 12px;
-  margin-left: 25px;
 }
 
 h2 {
@@ -93,5 +118,6 @@ ul {
 
 ul li {
   font-size: 11px;
+  cursor: pointer;
 }
 </style>

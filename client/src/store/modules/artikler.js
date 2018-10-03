@@ -9,6 +9,7 @@ const state = {
     artiklerLoading: false,
     artikel: {},
     mestSete: [],
+    soeg: [],
     artiklerError: {}
 }
 
@@ -34,6 +35,9 @@ const mutations = {
     setMestSete(state, artikler) {
         state.mestSete = artikler;
     },
+    setSoeg(state, artikler) {
+        state.soeg = artikler;
+    },
     setKommentar(state, artikel) {
         state.artikel = {
             ...artikel,
@@ -45,8 +49,30 @@ const mutations = {
 }
 
 const actions = {
+    hentSoeg({ commit }, payload) {
+        commit("setArtiklerLoading")
+        axios.post("/artikler/soeg", payload)
+            .then(res => {
+                commit("setArtiklerLoading")
+                commit("setSoeg", res.data)
+                console.log(res.data)
+            })
+            .catch(err => {
+                commit("setArtiklerLoading")
+                console.log(err)
+            })
+    },
     mestSete({ commit }) {
         axios.get("/artikler/klik")
+            .then(res => {
+                commit("setMestSete", res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    mestSeteKategori({ commit }, payload) {
+        axios.get("/artikler/klik/" + payload)
             .then(res => {
                 commit("setMestSete", res.data)
             })
@@ -173,7 +199,11 @@ const getters = {
     },
     mestSete: state => {
         return state.mestSete;
+    },
+    soeg: state => {
+        return state.soeg;
     }
+
 }
 
 export default {

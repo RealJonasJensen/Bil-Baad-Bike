@@ -22,6 +22,7 @@ export default {
   },
   created() {
     this.$store.dispatch("hentAlle");
+    this.$store.dispatch("mestSete");
   }
 };
 </script>

@@ -39,6 +39,7 @@ export default {
   },
   created() {
     this.$store.dispatch("hentSponsor");
+    this.$store.dispatch("mestSete");
   }
 };
 </script>

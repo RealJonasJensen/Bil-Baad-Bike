@@ -47,6 +47,7 @@ export default {
         const sti = this.$route.path.split("/")[1];
         this.$store.dispatch("hentKategori", sti);
         this.$store.dispatch("hentSponsorBilleder", sti);
+        this.$store.dispatch("mestSeteKategori", sti);
       }
     }
   },
@@ -57,6 +58,7 @@ export default {
     const sti = this.$route.path.split("/")[1];
     this.$store.dispatch("hentKategori", sti);
     this.$store.dispatch("hentSponsorBilleder", sti);
+    this.$store.dispatch("mestSeteKategori", sti);
   }
 };
 </script>

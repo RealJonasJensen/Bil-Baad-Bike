@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import Kommentar from "../Kommentar/Kommentar";
+import Kommentar from "./Kommentar";
 import { required, email } from "vuelidate/lib/validators";
 export default {
   data() {
@@ -65,6 +65,17 @@ export default {
         kommentar: ""
       }
     };
+  },
+  watch: {
+    $route: {
+      handler: function event() {
+        this.$store.dispatch("hentEn", this.$route.path.split("/")[2]);
+        this.$store.dispatch(
+          "mestSeteKategori",
+          this.$route.path.split("/")[0]
+        );
+      }
+    }
   },
   methods: {
     onComment() {
@@ -147,6 +158,7 @@ export default {
   },
   created() {
     this.$store.dispatch("hentEn", this.$route.path.split("/")[2]);
+    this.$store.dispatch("mestSeteKategori", this.$route.path.split("/")[0]);
   },
   validations: {
     formData: {
