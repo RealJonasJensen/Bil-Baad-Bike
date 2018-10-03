@@ -6,7 +6,11 @@
         </div>
         <h2>MEST LÆSTE</h2>
         <div class="sidebar-br"></div>
-        <div></div>
+        <div>
+            <ul>
+                <router-link tag="li" v-for="(item, index) in mestSete" :key="index" :to="`/${item.kategori}/${item._id}`">{{item.overskrift}}</router-link>
+            </ul>
+        </div>
         <h2>SPONSOR</h2>
         <div class="sidebar-br">
         </div>
@@ -21,6 +25,9 @@ export default {
   computed: {
     sponsorBilleder() {
       return this.$store.getters.getSponsorBilleder;
+    },
+    mestSete() {
+      return this.$store.getters.mestSete;
     }
   },
   components: {
@@ -76,5 +83,15 @@ h2 {
   height: 3px;
   width: 100%;
   background-color: rgb(53, 53, 53);
+}
+
+ul {
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+ul li {
+  font-size: 11px;
 }
 </style>

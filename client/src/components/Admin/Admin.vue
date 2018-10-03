@@ -6,6 +6,7 @@
         <div class="admin-indhold">
             <router-link to="/register">Register</router-link>
             <router-link to="/opret">Opret Ny</router-link>
+            <router-link to="/rediger">Rediger</router-link>
         </div>
     </div>
 </template>

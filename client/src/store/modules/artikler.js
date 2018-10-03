@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from "../store";
+import router from "../../router.js";
 
 const state = {
     seneste: [],
@@ -7,6 +8,7 @@ const state = {
     alle: [],
     artiklerLoading: false,
     artikel: {},
+    mestSete: [],
     artiklerError: {}
 }
 
@@ -28,21 +30,64 @@ const mutations = {
     },
     setEn(state, artikel) {
         state.artikel = artikel;
+    },
+    setMestSete(state, artikler) {
+        state.mestSete = artikler;
+    },
+    setKommentar(state, artikel) {
+        state.artikel = {
+            ...artikel,
+            kommentarer: [
+                ...artikel.kommentarer
+            ]
+        }
     }
 }
 
 const actions = {
+    mestSete({ commit }) {
+        axios.get("/artikler/klik")
+            .then(res => {
+                commit("setMestSete", res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
     opretNy({ commit }, payload) {
         commit("setArtiklerLoading")
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.post("/artikler", payload)
             .then(res => {
                 commit("setArtiklerLoading")
+                router.replace("/")
                 console.log(res.data)
             })
             .catch(err => {
                 commit("setArtiklerLoading")
                 console.log(err)
+            })
+    },
+    redigerEn({ commit }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
+        axios.put("/artikler/" + payload.id, payload)
+            .then(res => {
+                router.replace("/rediger")
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    nyKommentar({ commit }, payload) {
+        //console.log(payload)
+        axios.post("/artikler/" + payload.data.id + "/kommentar", payload.data)
+            .then(res => {
+                console.log(res.data);
+                commit("setKommentar", res.data)
+            })
+            .catch(err => {
+                console.log(err);
             })
     },
     opdaterKlik({ commit }) {
@@ -122,6 +167,12 @@ const getters = {
     },
     artikel: state => {
         return state.artikel;
+    },
+    artiklerLoading: state => {
+        return state.artiklerLoading;
+    },
+    mestSete: state => {
+        return state.mestSete;
     }
 }
 

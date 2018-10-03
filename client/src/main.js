@@ -4,10 +4,10 @@ import Vuelidate from "vuelidate";
 
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faSearch, faClock, faComments, faEye, faTag, faMapMarkerAlt, faPhone, faFax, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faSearch, faClock, faComments, faEye, faTag, faMapMarkerAlt, faPhone, faFax, faEnvelope, faComment } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faHome, faSearch, faClock, faComments, faEye, faTag, faMapMarkerAlt, faPhone, faFax, faEnvelope)
+library.add(faHome, faSearch, faClock, faComments, faEye, faTag, faMapMarkerAlt, faPhone, faFax, faEnvelope, faComment)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

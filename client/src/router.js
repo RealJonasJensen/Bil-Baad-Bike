@@ -13,6 +13,8 @@ import Register from "./components/Admin/Register/Register.vue";
 import Redaktion from "./components/Redaktion/Redaktion.vue";
 import VisEn from "./components/Artikel/VisEn.vue";
 import OpretNy from "./components/Admin/OpretNy/OpretNy.vue";
+import Rediger from "./components/Admin/Rediger/Rediger.vue";
+import RedigerEn from "./components/Admin/Rediger/RedigerEn.vue";
 
 Vue.use(VueRouter);
 
@@ -25,7 +27,7 @@ export const routes = [
     { path: "/kontakt", component: Kontakt },
     { path: "/sponsor", component: Sponsor },
     { path: "/redaktionen", component: Redaktion },
-    { path: "/:typeId/:id", component: VisEn },
+    { path: "/rediger", component: Rediger },
     {
         path: "/login", component: Login, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next("/admin") } else { next() }
@@ -45,7 +47,18 @@ export const routes = [
         path: "/opret", component: OpretNy, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next() } else { next("/") }
         }
-    }
+    },
+    {
+        path: "/rediger", component: Rediger, beforeEnter: (to, from, next) => {
+            if (store.state.login.isAuthenticated) { next() } else { next("/") }
+        }
+    },
+    {
+        path: "/rediger/:id", component: RedigerEn, beforeEnter: (to, from, next) => {
+            if (store.state.login.isAuthenticated) { next() } else { next("/") }
+        }
+    },
+    { path: "/:typeId/:id", component: VisEn },
 ]
 
 export default new VueRouter({

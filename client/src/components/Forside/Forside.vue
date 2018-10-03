@@ -16,6 +16,7 @@ export default {
   },
   created() {
     this.$store.dispatch("hentSeneste");
+    this.$store.dispatch("mestSete");
   },
   computed: {
     seneste() {

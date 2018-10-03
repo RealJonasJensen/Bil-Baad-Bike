@@ -27,15 +27,11 @@ const artiklerSchema = new mongoose.Schema({
                 type: String,
                 required: true
             },
-            tekst: {
+            kommentar: {
                 type: String,
                 required: true
             },
             email: {
-                type: String,
-                required: true
-            },
-            kategori: {
                 type: String,
                 required: true
             },

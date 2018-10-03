@@ -1,10 +1,15 @@
 <template>
     <div>
+        <div v-if="!artiklerLoading" >
         <p class="kategori-sti" >Forside <span>/ {{overskrift}}</span></p>
         <h1>{{overskrift.toUpperCase()}}</h1>
         <div class="kategori-br"></div>
         <div class="kategori-indhold">
             <app-artikel-objekt v-for="(item, index) in kategori" :key="index" :objekt="item" :sti="sti"></app-artikel-objekt>
+        </div>
+        </div>
+        <div v-else>
+            Loading...
         </div>
     </div>
 </template>
@@ -31,6 +36,9 @@ export default {
     },
     kategori() {
       return this.$store.getters.kategori;
+    },
+    artiklerLoading() {
+      return this.$store.getters.artiklerLoading;
     }
   },
   watch: {

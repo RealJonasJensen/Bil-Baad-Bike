@@ -27,6 +27,24 @@ router.get("/nylige", (req, res) => {
         .catch(err => res.status(404).json({ error: "Ingen artikler blev fundet" }))
 })
 
+// @route   GET api/artikler/klik/
+// @desc    Get 6 recent by most views
+// @access  Public
+router.get("/klik", (req, res) => {
+    Artikel.find({}).sort({ klik: -1 }).limit(6)
+        .then(artikler => res.json(artikler))
+        .catch(err => res.status(404).json({ error: "Ingen artikler fundet" }))
+})
+
+// @route   GET api/artikler/klik/
+// @desc    Get 6 recent by most views
+// @access  Public
+router.get("/klik/:kategori", (req, res) => {
+    Artikel.find({ kategori: req.params.kategori }).sort({ klik: -1 }).limit(6)
+        .then(artikler => res.json(artikler))
+        .catch(err => res.status(404).json({ error: "Ingen artikler fundet" }))
+})
+
 // @route   GET api/artikler/:id
 // @desc    Get article by id
 // @access  Public
@@ -73,6 +91,24 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, re
             artikel.remove().then(() => res.json({ success: true }))
         })
         .catch(err => res.status(404).json({ artikelNotFound: "Ingen artikel med det id" }))
+})
+
+// @route   DELETE api/artikler/:id/kommentar
+// @desc    Create a comment
+// @access  Public
+router.post("/:id/kommentar/", (req, res) => {
+    Artikel.findById(req.params.id).populate("forfatter", ["billede", "navn", "type", "tekst"])
+        .then(artikel => {
+            //console.log(req.body)
+            const nyKommentar = {
+                navn: req.body.navn,
+                email: req.body.email,
+                kommentar: req.body.kommentar
+            }
+            artikel.kommentarer.push(nyKommentar);
+            artikel.save().then(artikel => res.json(artikel))
+        })
+        .catch(err => res.status(404).json({ error: "Ingen artikel fundet" }))
 })
 
 // @route   PUT api/artikler/:id
