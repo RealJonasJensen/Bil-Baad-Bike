@@ -174,6 +174,23 @@ const actions = {
                 console.log(err)
             })
     },
+    sletKommentar({ dispatch }, payload) {
+        console.log(payload)
+        axios.delete("/artikler/" + payload.artikelId + "/kommentar/" + payload.kommentarId)
+            .then(res => {
+                console.log(res.data)
+                dispatch("hentEn", res.data._id)
+            })
+            .catch(err => console.log(err))
+    },
+    retKommentar({ dispatch }, payload) {
+        axios.put("/artikler/" + payload.artikelId + "/kommentar/" + payload.kommentarId, payload)
+            .then(res => {
+                console.log(res.data)
+                dispatch("hentEn", res.data._id)
+            })
+            .catch(err => console.log(err))
+    },
     nyKommentar({ commit }, payload) {
         //console.log(payload)
         axios.post("/artikler/" + payload.data.id + "/kommentar", payload.data)

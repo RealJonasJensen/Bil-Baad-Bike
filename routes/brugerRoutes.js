@@ -104,7 +104,7 @@ router.post("/login", (req, res) => {
 // @desc     Get redaktionen
 // @access   Public
 router.get("/redaktionen", (req, res) => {
-    Bruger.find({ type: "redaktoer" }, { navn: 1, billede: 1, tekst: 1, email: 1, redaktion: 1 })
+    Bruger.find({ type: "redaktoer" }, { navn: 1, billede: 1, tekst: 1, email: 1, redaktion: 1 }).sort({ navn: 1 })
         .then(brugere => res.json(brugere))
         .catch(err => res.status(404).json({ error: "Ingen redaktion fundet" }))
 })

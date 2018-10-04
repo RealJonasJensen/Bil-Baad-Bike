@@ -6,19 +6,56 @@
                 <div class="kommentar-info">
                     <p class="kommentar-info-navn">{{kommentar.navn}}</p>
                     <p class="kommentar-info-dato" ><font-awesome-icon class="kommentar-icon" icon="clock" />{{datoKommentar}}</p>
-                    <p class="kommentar-info-kommentar">{{kommentar.kommentar}}</p>
+                    <p v-if="!redigerKommentar" class="kommentar-info-kommentar">{{kommentar.kommentar}}</p>
+                    <textarea  :class="{invalid: $v.nyKommentar.$error}" @blur="$v.nyKommentar.$touch()" v-if="redigerKommentar" v-model="nyKommentar"  cols="30" rows="5"></textarea>
+                    <button @click="onSend(kommentar._id)" class="kommentar-knap" :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" v-if="redigerKommentar" >Bekræft</button>
+                    <button v-if="!redigerKommentar" @click="onSlet(kommentar._id)">Slet</button>
+                    <button @click="onRediger">Rediger</button>
                     <div class="kommentar-br" ></div>
                 </div>
         </div>
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
 export default {
-  props: ["kommentar"],
+  props: ["kommentar", "artikelId"],
   data() {
     return {
+      nyKommentar: "",
+      redigerKommentar: false,
       mutedKommentar: this.kommentar
     };
+  },
+  methods: {
+    onSlet(kommentarId) {
+      if (confirm("Er du sikker på du vil slette denne kommentar?")) {
+        //console.log(kommentarId, this.artikelId);
+        const data = {
+          kommentarId,
+          artikelId: this.artikelId
+        };
+        this.$store.dispatch("sletKommentar", data);
+      }
+    },
+    onRediger() {
+      this.nyKommentar = this.kommentar.kommentar;
+      this.redigerKommentar = !this.redigerKommentar;
+    },
+    onSend(kommentarId) {
+      const data = {
+        kommentarId,
+        artikelId: this.artikelId,
+        kommentar: this.nyKommentar
+      };
+      this.redigerKommentar = !this.redigerKommentar;
+      this.$store.dispatch("retKommentar", data);
+    }
+  },
+  validations: {
+    nyKommentar: {
+      required
+    }
   },
   computed: {
     datoKommentar() {
@@ -109,5 +146,42 @@ export default {
 
 .kommentar-info-kommentar {
   font-size: 12px;
+  padding: 5px 0;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
+  border-radius: 3px;
+  outline: none;
+  margin: 10px 0;
+}
+
+.kommentar-knap {
+  cursor: not-allowed;
+  color: rgb(240, 240, 240);
+}
+
+textarea {
+  width: 100%;
+  border: 2px rgb(240, 240, 240) solid;
+  outline: none;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+textarea:focus {
+  border: rgba(255, 192, 0, 0.5) solid 2px;
+}
+
+.validKnap {
+  cursor: pointer;
+  color: rgb(53, 53, 53);
+}
+.invalid {
+  border: solid 2px rgb(255, 83, 83);
+  transition: all 0.5s;
 }
 </style>

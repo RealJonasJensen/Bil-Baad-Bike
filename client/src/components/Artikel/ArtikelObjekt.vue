@@ -1,10 +1,10 @@
 <template>
-    <div :style="artikelObjektStyle" class="artikel-objekt" >
-        <h2>{{overskrift}}</h2>
-        <p class="artikel-dato" ><font-awesome-icon class="artikel-icon" icon="clock" />{{dato}}</p>
-        <p class="artikel-kommentarer"> <font-awesome-icon class="artikel-icon" icon="comments" />{{kommentarer}} KOMMENTARER</p>
+    <div v-if="objekt" :style="artikelObjektStyle" class="artikel-objekt" >
+        <h2>{{objekt.overskrift | overskrift(objekt.overskrift) }}</h2>
+        <p class="artikel-dato" ><font-awesome-icon class="artikel-icon" icon="clock" />{{objekt.oprettet | dato(objekt.oprettet)}}</p>
+        <p class="artikel-kommentarer"> <font-awesome-icon class="artikel-icon" icon="comments" />{{objekt.kommentarer.length}} KOMMENTARER</p>
         <p class="artikel-visninger"><font-awesome-icon class="artikel-icon" icon="eye" />{{objekt.klik}} {{objekt.klik === 1 ? "VISNING" : "VISNINGER"}}</p>
-        <p class="artikel-tekst">{{tekst}}</p>
+        <p class="artikel-tekst">{{objekt.tekst | text(objekt.tekst, this.$route.path) | striphtml}}</p>
 
         <p v-if="!sti || sti === 'arkiv'" class="artikel-kategori" ><font-awesome-icon class="artikel-icon" icon="tag" />{{objekt.kategori.toUpperCase()}}</p>
 
@@ -19,85 +19,8 @@ export default {
     return {
       artikelObjektStyle: {
         width: this.sti ? "100%" : "50%"
-      },
-      mutedobjekt: this.objekt
+      }
     };
-  },
-  computed: {
-    dato() {
-      let dato = this.mutedobjekt.oprettet;
-      let time = dato.split("T")[1].split(":");
-      time = `${time[0]}:${time[1]}`;
-      let month = dato
-        .split("T")[0]
-        .split("-")
-        .reverse();
-
-      switch (month[1]) {
-        case "01":
-          month[1] = "JANUAR";
-          break;
-        case "02":
-          month[1] = "FEBRUAR";
-          break;
-        case "03":
-          month[1] = "MARTS";
-          break;
-        case "04":
-          month[1] = "APRIL";
-          break;
-        case "05":
-          month[1] = "MAJ";
-          break;
-        case "06":
-          month[1] = "JUNI";
-          break;
-        case "07":
-          month[1] = "JULI";
-          break;
-        case "08":
-          month[1] = "AUGUST";
-          break;
-        case "09":
-          month[1] = "SEPTEMPER";
-          break;
-        case "10":
-          month[1] = "OKTOBER";
-          break;
-        case "11":
-          month[1] = "NOVEMBER";
-          break;
-        case "12":
-          month[1] = "DECEMBER";
-          break;
-        default:
-      }
-      return `${month[0]}. ${month[1]} ${month[2]} KL. ${time}`;
-    },
-    kommentarer() {
-      let kommentarer = this.mutedobjekt.kommentarer;
-      return kommentarer.length;
-    },
-    tekst() {
-      //console.log(this.$route.path);
-      if (this.mutedobjekt.tekst.length > 500 && this.$route.path !== "/") {
-        return this.mutedobjekt.tekst.substring(0, 499) + " ...";
-      } else if (
-        this.mutedobjekt.tekst.length > 200 &&
-        this.$route.path === "/"
-      ) {
-        // const text = this.mutedobjekt.tekst.split(" ");
-        // console.log(text);
-        return this.mutedobjekt.tekst.substring(0, 199) + " ...";
-      }
-      return this.mutedobjekt.tekst;
-    },
-    overskrift() {
-      if (this.mutedobjekt.overskrift.length > 28) {
-        return this.mutedobjekt.overskrift.substring(0, 27) + " ...";
-      }
-      return this.mutedobjekt.overskrift;
-    }
   }
 };
 </script>

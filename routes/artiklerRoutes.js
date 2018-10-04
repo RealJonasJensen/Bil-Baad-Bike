@@ -107,7 +107,7 @@ router.post("/", passport.authenticate("jwt", { session: false }), (req, res) =>
 router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Artikel.findById(req.params.id)
         .then(artikel => {
-            artikel.remove().then(() => res.json({...artikel, success: true }))
+            artikel.remove().then(() => res.json({ ...artikel, success: true }))
         })
         .catch(err => res.status(404).json({ artikelNotFound: "Ingen artikel med det id" }))
 })
@@ -128,6 +128,33 @@ router.post("/:id/kommentar/", (req, res) => {
             artikel.save().then(artikel => res.json(artikel))
         })
         .catch(err => res.status(404).json({ error: "Ingen artikel fundet" }))
+})
+
+// @route   DELETE api/artikler/:id/kommentar/:kommentarId
+// @desc    Delete a comment
+// @access  Private
+router.delete("/:id/kommentar/:kommentarId", (req, res) => {
+    Artikel.findById(req.params.id)
+        .then(artikel => {
+            const nyeKommentarer = artikel.kommentarer.filter(kommentar => kommentar._id != req.params.kommentarId);
+            //console.log(nyeKommentarer);
+            artikel.kommentarer = nyeKommentarer;
+            artikel.save().then(artikel => res.json(artikel))
+        })
+        .catch(err => res.status(404).json({ error: "Ingen kommentar fundet" }))
+})
+
+// @route   PUT api/artikler/:id/kommentar
+// @desc    Update a comment
+// @access  Private
+router.put("/:id/kommentar/:kommentarId", (req, res) => {
+    Artikel.findById(req.params.id)
+        .then(artikel => {
+            const kommentar = artikel.kommentarer.filter(kommentar => kommentar._id == req.params.kommentarId);
+            kommentar[0].kommentar = req.body.kommentar;
+            artikel.save().then(artikel => res.json(artikel))
+        })
+        .catch(err => res.status(404).json({ error: "Ingen kommentar fundet" }))
 })
 
 // @route   PUT api/artikler/:id
