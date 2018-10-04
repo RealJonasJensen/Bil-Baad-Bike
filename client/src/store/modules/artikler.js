@@ -10,6 +10,7 @@ const state = {
     artikel: {},
     mestSete: [],
     soeg: [],
+    logs: [],
     artiklerError: {}
 }
 
@@ -38,6 +39,9 @@ const mutations = {
     setSoeg(state, artikler) {
         state.soeg = artikler;
     },
+    setLogs(state, logs) {
+        state.logs = logs;
+    },
     setKommentar(state, artikel) {
         state.artikel = {
             ...artikel,
@@ -49,6 +53,35 @@ const mutations = {
 }
 
 const actions = {
+    sletLog({ dispatch }, payload) {
+        axios.delete("/logs/" + payload)
+            .then(res => {
+                console.log(res.data)
+                dispatch("hentLogs")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    hentLogs({ commit }) {
+        axios.get("/logs")
+            .then(res => {
+                commit("setLogs", res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    nyLog({ }, payload) {
+        console.log(payload);
+        axios.post("/logs", payload)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
     hentSoeg({ commit }, payload) {
         commit("setArtiklerLoading")
         axios.post("/artikler/soeg", payload)
@@ -80,12 +113,20 @@ const actions = {
                 console.log(err)
             })
     },
-    opretNy({ commit }, payload) {
+    opretNy({ commit, dispatch }, payload) {
         commit("setArtiklerLoading")
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.post("/artikler", payload)
             .then(res => {
                 commit("setArtiklerLoading")
+                const data = {
+                    artikel: res.data._id,
+                    artikelNavn: res.data.overskrift,
+                    bruger: res.data.forfatter,
+                    brugerNavn: store.getters.bruger.navn,
+                    tekst: "oprettede"
+                }
+                dispatch("nyLog", data)
                 router.replace("/")
                 console.log(res.data)
             })
@@ -94,22 +135,38 @@ const actions = {
                 console.log(err)
             })
     },
-    sletEn({ commit }, payload) {
+    sletEn({ dispatch }, payload) {
         console.log(payload)
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/artikler/" + payload)
             .then(res => {
                 router.replace("/admin");
+                const data = {
+                    artikel: res.data._doc._id,
+                    artikelNavn: res.data._doc.overskrift,
+                    bruger: res.data._doc.forfatter,
+                    brugerNavn: store.getters.bruger.navn,
+                    tekst: "slettede"
+                }
+                dispatch("nyLog", data)
                 console.log(res.data);
             })
             .catch(err => {
                 console.log(err)
             })
     },
-    redigerEn({ commit }, payload) {
+    redigerEn({ dispatch }, payload) {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/artikler/" + payload.id, payload)
             .then(res => {
+                const data = {
+                    artikel: res.data._id,
+                    artikelNavn: res.data.overskrift,
+                    bruger: res.data.forfatter,
+                    brugerNavn: store.getters.bruger.navn,
+                    tekst: "redigerede"
+                }
+                dispatch("nyLog", data)
                 router.replace("/admin/rediger")
                 console.log(res.data)
             })
@@ -214,6 +271,9 @@ const getters = {
     },
     soeg: state => {
         return state.soeg;
+    },
+    logs: state => {
+        return state.logs;
     }
 
 }

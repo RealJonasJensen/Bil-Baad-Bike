@@ -14,11 +14,26 @@
             <router-link tag="div" class="admin-btn" to="/admin/kontakt">Rediger Kontakt</router-link>
         <h1>Log</h1>
         <div class="admin-br"></div>
+            <app-log v-for="(item, index) in logs" :objekt="item" :key="index" ></app-log>
         </div>
     </div>
 </template>
 
 <script>
+import Log from "./Log";
+export default {
+  computed: {
+    logs() {
+      return this.$store.getters.logs;
+    }
+  },
+  components: {
+    appLog: Log
+  },
+  created() {
+    this.$store.dispatch("hentLogs");
+  }
+};
 </script>
 
 <style scoped>
