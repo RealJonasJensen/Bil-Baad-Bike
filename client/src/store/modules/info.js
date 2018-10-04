@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "../../router";
 
 const state = {
     kontaktInfo: {},
@@ -22,6 +23,18 @@ const actions = {
                 commit("setKontakt", res.data[0])
             })
             .catch(err => console.log(err))
+    },
+    opdaterKontakt({ commit }, payload) {
+        console.log(payload);
+        axios.put("/kontakt", payload)
+            .then(res => {
+                console.log(res.data)
+                commit("setKontakt", res.data[0])
+                router.replace("/kontakt")
+            })
+            .catch(err => {
+                console.log(err)
+            })
     },
     hentRedaktion({ commit }) {
         axios.get("/brugere/redaktionen")

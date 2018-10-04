@@ -12,7 +12,7 @@ const validateKontaktInput = require("../validation/kontaktValidation");
 // @desc     Get contact info
 // @access   Public
 router.get("/", (req, res) => {
-    Kontakt.find({})
+    Kontakt.find({ _id: "5bb1ff0fc3295f28fc276404" })
         .then(sponsor => res.json(sponsor))
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 })

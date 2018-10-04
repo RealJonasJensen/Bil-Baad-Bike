@@ -37,8 +37,10 @@ export default {
         const data = { soeg: this.term };
         this.$router.replace("/soeg/" + data.soeg);
         this.$store.dispatch("hentSoeg", data);
+        this.term = "";
       } else {
         this.$router.replace("/soeg/" + this.term);
+        this.term = "";
       }
     }
   },

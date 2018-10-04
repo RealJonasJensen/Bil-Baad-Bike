@@ -6,21 +6,22 @@
         <div class="login-indhold">
                     <div>
                         <p>E-mail</p>
-                        <input v-model="email" type="text">
+                        <input :class="{invalid: $v.email.$error}" @blur="$v.email.$touch()" v-model="email" type="text">
                         {{errors.loginEmail}}
 
                     </div>
                     <div>
                         <p>Password</p>
-                        <input type="password" v-model="password">
+                        <input :class="{invalid: $v.password.$error}" @blur="$v.password.$touch()" type="password" v-model="password">
                         {{errors.loginPassword}}
                     </div>
-                <button @click="login" >Login</button>
+                <button :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" @click="login" >Login</button>
         </div>
     </div>
 </template>
 
 <script>
+import { required, email } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
@@ -40,6 +41,15 @@ export default {
   computed: {
     errors() {
       return this.$store.getters.loginErrors;
+    }
+  },
+  validations: {
+    email: {
+      email,
+      required
+    },
+    password: {
+      required
     }
   }
 };
@@ -88,8 +98,18 @@ input {
 input:focus {
   border: rgba(255, 192, 0, 0.5) solid 2px;
 }
-
 button {
+  font-family: "Oswald", sans-serif;
+  background-color: rgb(230, 230, 230);
+  color: rgb(206, 206, 206);
+  text-align: center;
+  padding: 8px 25px;
+  margin: 10px 0 50px;
+  border: none;
+  outline: none;
+}
+
+.validKnap {
   font-family: "Oswald", sans-serif;
   background-color: rgb(230, 230, 230);
   color: rgb(119, 119, 119);
@@ -101,8 +121,12 @@ button {
   outline: none;
 }
 
-button:hover {
+.validKnap:hover {
   background-color: rgb(128, 28, 28);
   color: rgb(240, 240, 240);
+}
+.invalid {
+  border: solid 2px rgb(255, 83, 83);
+  transition: all 0.5s;
 }
 </style>

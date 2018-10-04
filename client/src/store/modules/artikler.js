@@ -94,11 +94,23 @@ const actions = {
                 console.log(err)
             })
     },
+    sletEn({ commit }, payload) {
+        console.log(payload)
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
+        axios.delete("/artikler/" + payload)
+            .then(res => {
+                router.replace("/admin");
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
     redigerEn({ commit }, payload) {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/artikler/" + payload.id, payload)
             .then(res => {
-                router.replace("/rediger")
+                router.replace("/admin/rediger")
                 console.log(res.data)
             })
             .catch(err => {

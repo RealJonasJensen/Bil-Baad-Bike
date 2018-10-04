@@ -16,6 +16,11 @@ import OpretNy from "./components/Admin/OpretNy/OpretNy.vue";
 import Rediger from "./components/Admin/Rediger/Rediger.vue";
 import RedigerEn from "./components/Admin/Rediger/RedigerEn.vue";
 import Soeg from "./components/Soeg/Soeg.vue";
+import AdminKontakt from "./components/Admin/Kontakt/Kontakt.vue";
+import AdminPriser from "./components/Admin/Priser/Priser.vue";
+import RedigerPriserEn from "./components/Admin/Priser/PriserRedigerEn.vue";
+import NyPris from "./components/Admin/Priser/NyPris.vue";
+import Beskeder from "./components/Admin/Beskeder/Beskeder.vue";
 
 Vue.use(VueRouter);
 
@@ -28,35 +33,40 @@ export const routes = [
     { path: "/kontakt", component: Kontakt },
     { path: "/sponsor", component: Sponsor },
     { path: "/redaktionen", component: Redaktion },
-    { path: "/rediger", component: Rediger },
     { path: "/soeg/:term", component: Soeg },
+    { path: "/admin", component: Admin }, // Fjern snart
+    { path: "/admin/kontakt", component: AdminKontakt }, // Fjern snart
+    { path: "/admin/priser", component: AdminPriser }, // Fjern snart
+    { path: "/admin/priser/opret", component: NyPris }, // Fjern snart
+    { path: "/admin/priser/:id", component: RedigerPriserEn }, // Fjern snart
+    { path: "/admin/beskeder/", component: Beskeder }, // Fjern snart
     {
         path: "/login", component: Login, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next("/admin") } else { next() }
         }
     },
+    // {
+    //     path: "/admin", component: Admin, beforeEnter: (to, from, next) => {
+    //         if (store.state.login.isAuthenticated) { next() } else { next("/") }
+    //     }
+    // },
     {
-        path: "/admin", component: Admin, beforeEnter: (to, from, next) => {
-            if (store.state.login.isAuthenticated) { next() } else { next("/") }
-        }
-    },
-    {
-        path: "/register", component: Register, beforeEnter: (to, from, next) => {
+        path: "/admin/register", component: Register, beforeEnter: (to, from, next) => {
             if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
         }
     },
     {
-        path: "/opret", component: OpretNy, beforeEnter: (to, from, next) => {
+        path: "/admin/opret", component: OpretNy, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next() } else { next("/") }
         }
     },
     {
-        path: "/rediger", component: Rediger, beforeEnter: (to, from, next) => {
+        path: "/admin/rediger", component: Rediger, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next() } else { next("/") }
         }
     },
     {
-        path: "/rediger/:id", component: RedigerEn, beforeEnter: (to, from, next) => {
+        path: "/admin/rediger/:id", component: RedigerEn, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next() } else { next("/") }
         }
     },

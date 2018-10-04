@@ -11,7 +11,7 @@
                 </div>
                 <div class="rediger-tekst">
                     <p>Tekst</p>
-                    <textarea :class="{invalid: $v.formData.tekst.$error}" @blur="$v.formData.tekst.$touch()" v-model="formData.tekst" name="" id="" cols="30" rows="20"></textarea>
+                    <textarea :class="{invalid: $v.formData.tekst.$error}" @blur="$v.formData.tekst.$touch()" v-model="formData.tekst" cols="30" rows="20"></textarea>
                 </div>
                 <p>Kategori: </p>
 
@@ -45,7 +45,8 @@ export default {
   },
   methods: {
     onRediger() {
-      const data = { ...this.formData, id: this.$route.path.split("/")[2] };
+      const data = { ...this.formData, id: this.$route.path.split("/")[3] };
+      console.log(data);
       this.$store.dispatch("redigerEn", data);
     }
   },
@@ -83,7 +84,7 @@ export default {
   },
   created() {
     // console.log();
-    this.$store.dispatch("hentEn", this.$route.path.split("/")[2]);
+    this.$store.dispatch("hentEn", this.$route.path.split("/")[3]);
   }
 };
 </script>

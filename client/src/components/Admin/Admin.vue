@@ -1,12 +1,19 @@
 <template>
     <div>
-        <p class="admin-sti" >Admin </p>
+        <p class="admin-sti" > <span>Admin</span></p>
         <h1>Admin</h1>
         <div class="admin-br"></div>
         <div class="admin-indhold">
-            <router-link to="/register">Register</router-link>
-            <router-link to="/opret">Opret Ny</router-link>
-            <router-link to="/rediger">Rediger</router-link>
+            <router-link tag="div" class="admin-btn" to="/admin/register">Registrer Ny Redaktør/Admin</router-link>
+            <router-link tag="div" class="admin-btn" to="/">Rediger Redaktør</router-link>
+            <router-link tag="div" class="admin-btn" to="/admin/beskeder">Administrer beskeder</router-link>
+            <router-link tag="div" class="admin-btn" to="/admin/opret">Opret Ny Artikel</router-link>
+            <router-link tag="div" class="admin-btn" to="/admin/rediger">Rediger Artikel</router-link>
+            <router-link tag="div" class="admin-btn" to="/">Rediger Sponsorer</router-link>
+            <router-link tag="div" class="admin-btn" to="/admin/priser">Rediger Priser</router-link>
+            <router-link tag="div" class="admin-btn" to="/admin/kontakt">Rediger Kontakt</router-link>
+        <h1>Log</h1>
+        <div class="admin-br"></div>
         </div>
     </div>
 </template>
@@ -35,8 +42,12 @@ h1 {
   background-color: rgb(53, 53, 53);
 }
 
-.admin-indhold  {
-  display: grid;
-  grid-template-columns: 50% 50%;
+.admin-btn {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid rgb(53, 53, 53);
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
 }
 </style>

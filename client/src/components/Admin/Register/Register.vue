@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="register-sti" >Admin <span>/ Register</span></p>
+        <p class="register-sti" >Admin <span>/ Registrer</span></p>
         <h1>Registrer</h1>
         <div class="register-br"></div>
         <div class="register-indhold">

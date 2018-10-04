@@ -14,7 +14,10 @@ const validateSponsorInput = require("../validation/sponsorValidation");
 // @access   Public
 router.get("/", (req, res) => {
     Sponsor.find({})
-        .then(sponsor => res.json(sponsor))
+        .then(sponsor => {
+            res.json(sponsor)
+        }
+        )
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 })
 
@@ -74,6 +77,45 @@ router.post("/priser", (req, res) => {
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 })
 
+// @route    GET api/sponsor/priser/:id
+// @desc     Get sponsor by id
+// @access   Public
+router.get("/priser/:id", (req, res) => {
+    Sponsor.findById("5bb1f8cb5ad48f261a8c8dda")
+        .then(sponsor => {
+            //console.log(sponsor.priser)
+            const pris = sponsor.priser.filter(pris => pris._id == req.params.id);
+            res.json(pris);
+        })
+        .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
+})
 
+// @route    DELETE api/sponsor/priser/:id
+// @desc     DELETE sponsor by id
+// @access   Private
+router.delete("/priser/:id", (req, res) => {
+    Sponsor.findById("5bb1f8cb5ad48f261a8c8dda")
+        .then(sponsor => {
+            const priser = sponsor.priser.filter(pris => pris._id != req.params.id);
+            sponsor.priser = priser;
+            sponsor.save().then(sponsor => res.json(sponsor));
+            // console.log(priser)
+        })
+        .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
+})
 
+// @route    PUT api/sponsor/priser/:id
+// @desc     Update sponsor by id
+// @access   Private
+router.put("/priser/:id", (req, res) => {
+    Sponsor.findById("5bb1f8cb5ad48f261a8c8dda")
+        .then(sponsor => {
+            //console.log(sponsor.priser)
+            const pris = sponsor.priser.filter(pris => pris._id == req.params.id);
+            pris[0].visninger = req.body.visninger;
+            pris[0].pris = req.body.pris;
+            sponsor.save().then(sponsor => res.json(sponsor));
+        })
+        .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
+})
 module.exports = router;

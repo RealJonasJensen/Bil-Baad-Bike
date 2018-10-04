@@ -7,7 +7,6 @@ module.exports = validateKontaktInput = (data) => {
     data.telefon = !isEmpty(data.telefon) ? data.telefon : "";
     data.fax = !isEmpty(data.fax) ? data.fax : "";
     data.email = !isEmpty(data.email) ? data.email : "";
-    data.navn = !isEmpty(data.navn) ? data.navn : "";
     data.adresse = !isEmpty(data.adresse) ? data.adresse : "";
     data.postkode = !isEmpty(data.postkode) ? data.postkode : "";
     data.land = !isEmpty(data.land) ? data.land : "";
@@ -21,9 +20,6 @@ module.exports = validateKontaktInput = (data) => {
     }
     if (Validator.isEmpty(data.email)) {
         errors.email = "Email kan ikke være tom";
-    }
-    if (Validator.isEmpty(data.navn)) {
-        errors.navn = "Navn kan ikke være tom";
     }
     if (Validator.isEmpty(data.adresse)) {
         errors.adresse = "Adresse kan ikke være tom";

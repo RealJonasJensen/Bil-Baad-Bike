@@ -112,7 +112,7 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, re
         .catch(err => res.status(404).json({ artikelNotFound: "Ingen artikel med det id" }))
 })
 
-// @route   DELETE api/artikler/:id/kommentar
+// @route   POST api/artikler/:id/kommentar
 // @desc    Create a comment
 // @access  Public
 router.post("/:id/kommentar/", (req, res) => {

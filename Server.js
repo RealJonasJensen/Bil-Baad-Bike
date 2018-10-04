@@ -12,6 +12,7 @@ const brugerRoutes = require("./routes/brugerRoutes");
 const nyhedsbrevRoutes = require("./routes/nyhedsbrevRoutes");
 const sponsorRoutes = require("./routes/sponsorRoutes");
 const kontaktRoutes = require("./routes/kontaktRoutes");
+const beskederRoutes = require("./routes/beskederRoutes");
 
 // Passport Config
 require("./config/passport")(passport);
@@ -34,6 +35,7 @@ app.use("/api/brugere", brugerRoutes);
 app.use("/api/nyhedsbrev", nyhedsbrevRoutes);
 app.use("/api/sponsor", sponsorRoutes);
 app.use("/api/kontakt", kontaktRoutes);
+app.use("/api/beskeder", beskederRoutes);
 
 // Server
 const PORT = process.env.PORT || 4000;

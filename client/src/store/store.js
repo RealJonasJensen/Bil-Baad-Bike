@@ -5,6 +5,7 @@ import artikler from "./modules/artikler";
 import sponsor from "./modules/sponsor";
 import info from "./modules/info";
 import login from "./modules/login";
+import beskeder from "./modules/beskeder";
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
         sponsor,
         info,
         login,
+        beskeder
     }
 })

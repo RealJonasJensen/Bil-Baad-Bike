@@ -8,9 +8,9 @@
             <div class="rediger">
                 <p class="rediger-overskrift">{{item.overskrift}} - {{item.kategori.toUpperCase()}}</p>
                 <div class="rediger-knapper">
-                    
-                    <router-link :to="'/rediger/' + item._id" tag="button" class="knap-rediger">Rediger</router-link>
-                    <button class="knap-slet">Slet</button>    
+
+                    <router-link :to="'/admin/rediger/' + item._id" tag="button" class="knap-rediger">Rediger</router-link>
+                    <button @click="onSlet(item._id, item.overskrift)" class="knap-slet">Slet</button>    
                 </div>
             </div>
             <div class="rediger-tekst-br"></div>
@@ -21,6 +21,14 @@
 
 <script>
 export default {
+  methods: {
+    onSlet(id, navn) {
+      //console.log(id);
+      if (confirm("Er du sikker på du vil slette " + navn + "?")) {
+        this.$store.dispatch("sletEn", id);
+      }
+    }
+  },
   computed: {
     alle() {
       return this.$store.getters.alle;
@@ -65,6 +73,7 @@ button {
   background-color: rgb(255, 255, 255);
   border: 1px solid black;
   border-radius: 3px;
+  outline: none;
 }
 
 .rediger-tekst-br {
