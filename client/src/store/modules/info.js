@@ -67,6 +67,15 @@ const actions = {
                 console.log(err)
             })
     },
+    opdaterRedaktoerBillede({ }, payload) {
+        console.log(payload)
+        axios.put("/brugere/redaktion/billede/" + payload.id, payload.data)
+            .then(res => {
+                console.log(res.data)
+                router.replace("/admin/redigerredaktoer")
+            })
+            .catch(err => console.log(err))
+    },
     opdaterRedaktoer({ }, payload) {
         axios.put("/brugere/redaktion/" + payload.id, payload)
             .then(res => {

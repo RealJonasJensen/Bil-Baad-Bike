@@ -1,11 +1,45 @@
 // Modules
-const express = require("express")
+const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const passport = require("passport");
+const multer = require("multer");
+const sharp = require("sharp");
+
+
+// Multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        // console.log(file)
+        cb(null, "./client/src/assets/redaktion");
+    },
+    filename: (req, file, cb) => {
+        // console.log(req)
+        // console.log(file)
+        cb(null, new Date().toISOString() + file.originalname)
+    },
+
+    max: true
+})
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype == "image/jpg") {
+        cb(null, true)
+    } else {
+        cb(null, false)
+    }
+}
+
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: {
+        fileSize: 1024 * 1024 * 5 // 5mb
+    }
+});
 
 // Models
 const Bruger = require("../models/brugere");
@@ -123,11 +157,30 @@ router.get("/redaktion/:id", (req, res) => {
 
 // @route    PUT api/brugere/:id
 // @desc     Update a user
-// @access   PRIVATE
+// @access   Private
 router.put("/redaktion/:id", (req, res) => {
     Bruger.findByIdAndUpdate(req.params.id, req.body)
         .then(bruger => res.json(bruger))
         .catch(err => res.status(404).json({ error: "Ingen redaktion fundet" }))
+})
+
+// @route    PUT api/brugere/billede/:id
+// @desc     Update a users image 
+// @access   Private
+router.put("/redaktion/billede/:id", upload.single("billede"), (req, res) => {
+    const filNavn = new Date().toISOString() + req.file.originalname;
+    const data = { billede: filNavn }
+    //console.log(req.file)
+    // Resize Image
+    sharp(req.file.path).resize({ width: 128 })
+        .toFile(req.file.destination + "/" + filNavn, (err, info) => {
+            if (err) console.log(err)
+            //console.log(info)
+            Bruger.findByIdAndUpdate(req.params.id, data)
+                .then(bruger => res.json(bruger))
+                .catch(err => res.status(404).json({ error: "Ingen redaktoer fundet" }))
+        })
+
 })
 
 module.exports = router;

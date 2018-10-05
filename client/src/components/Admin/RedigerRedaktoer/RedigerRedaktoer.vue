@@ -13,9 +13,8 @@
                     <p>
                         {{item.type === "redaktoer" ? "Redaktør" : "Admin"}}
                     </p>
-                
                 <router-link :to="'/admin/redigerredaktoer/' + item._id" tag="button">Rediger Profil</router-link>
-                <router-link to="/" tag="button">Rediger Billede</router-link>
+                <router-link :to="'/admin/redigerbillede/' + item._id" tag="button">Rediger Billede</router-link>
                 </div>
             </div>
         </div>
