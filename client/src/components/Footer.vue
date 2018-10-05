@@ -17,7 +17,9 @@
         <div class="footer-nyhedsbrev">
             <h4>Nyhedsbrev</h4>
             <input v-model="email" type="text" placeholder="E-mailadresse" >
-            
+            <p>
+                {{infoBesked.email}}
+            </p>
             <button :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" class="footer-btn" @click="onTilmeld" >TILMELD</button>
             <button :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" class="footer-btn" @click="onAfmeld" >AFMELD</button>
         </div>
@@ -34,13 +36,20 @@ export default {
   },
   methods: {
     onTilmeld() {
-      console.log("Tilmeld" + this.email);
+      const data = { email: this.email };
+      this.$store.dispatch("nyNyhedsbrev", data);
+      this.email = "";
     },
     onAfmeld() {
-      console.log("Afmeld" + this.email);
+      const data = { email: this.email };
+      this.$store.dispatch("sletNyhedsbrev", data);
+      this.email = "";
     }
   },
   computed: {
+    infoBesked() {
+      return this.$store.getters.getInfoBesked;
+    },
     kontakt() {
       return this.$store.getters.getKontakt;
     }

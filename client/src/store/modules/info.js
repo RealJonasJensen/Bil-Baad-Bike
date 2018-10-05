@@ -3,7 +3,8 @@ import router from "../../router";
 
 const state = {
     kontaktInfo: {},
-    redaktion: []
+    redaktion: [],
+    infoBesked: {}
 }
 
 const mutations = {
@@ -12,10 +13,36 @@ const mutations = {
     },
     setRedaktion(state, redaktion) {
         state.redaktion = redaktion;
+    },
+    setInfoBesked(state, besked) {
+        state.infoBesked = besked;
     }
 }
 
 const actions = {
+    nyNyhedsbrev({ commit }, payload) {
+        axios.post("/nyhedsbrev", payload)
+            .then(res => {
+                console.log(res.data)
+                commit("setInfoBesked", { email: "Du er nu tilmeldt nyhedsbrevet" })
+            })
+            .catch(err => {
+                commit("setInfoBesked", err.response.data)
+                console.log(err.response.data)
+            })
+    },
+    sletNyhedsbrev({ commit }, payload) {
+        //console.log(payload)
+        axios.post("/nyhedsbrev/slet", payload)
+            .then(res => {
+                console.log(res.data)
+                commit("setInfoBesked", res.data)
+            })
+            .catch(err => {
+                commit("setInfoBesked", err.response.data)
+                console.log(err.response.data)
+            })
+    },
     hentKontakt({ commit }) {
         axios.get("/kontakt")
             .then(res => {
@@ -51,6 +78,9 @@ const getters = {
     },
     getRedaktion: state => {
         return state.redaktion;
+    },
+    getInfoBesked: state => {
+        return state.infoBesked;
     }
 }
 

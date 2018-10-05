@@ -13,7 +13,7 @@
                     <paginate name="soeg" :per="5" :list="soeg" class="paginate-list">
                         <app-artikel-objekt v-for="(item,index) in paginated('soeg')" :key="index" :objekt="item" sti="soeg"></app-artikel-objekt>
                     </paginate>
-                <paginate-links for="soeg" :limit="5" :show-step-links="true" :step-links="{next: '', prev: ''}"></paginate-links>
+                <paginate-links for="soeg" :limit="5" :show-step-links="true" :step-links="{next: ' ', prev: ' '}"></paginate-links>
                 </div>
                 <div v-else>
                     <app-artikel-objekt v-for="(item, index) in soeg" :objekt="item" :sti="'soeg'" :key="index"></app-artikel-objekt>
