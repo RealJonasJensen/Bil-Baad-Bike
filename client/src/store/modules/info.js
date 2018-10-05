@@ -4,6 +4,7 @@ import router from "../../router";
 const state = {
     kontaktInfo: {},
     redaktion: [],
+    enRedaktoer: {},
     infoBesked: {}
 }
 
@@ -16,6 +17,9 @@ const mutations = {
     },
     setInfoBesked(state, besked) {
         state.infoBesked = besked;
+    },
+    setEnRedaktoer(state, enRedaktoer) {
+        state.enRedaktoer = enRedaktoer;
     }
 }
 
@@ -63,6 +67,21 @@ const actions = {
                 console.log(err)
             })
     },
+    opdaterRedaktoer({ }, payload) {
+        axios.put("/brugere/redaktion/" + payload.id, payload)
+            .then(res => {
+                console.log(res.data);
+                router.replace("/admin/redigerredaktoer")
+            })
+            .catch(err => console.log(err))
+    },
+    hentEnRedaktoer({ commit }, payload) {
+        axios.get("/brugere/redaktion/" + payload)
+            .then(res => {
+                commit("setEnRedaktoer", res.data)
+            })
+            .catch(err => console.log(err))
+    },
     hentRedaktion({ commit }) {
         axios.get("/brugere/redaktionen")
             .then(res => {
@@ -81,6 +100,9 @@ const getters = {
     },
     getInfoBesked: state => {
         return state.infoBesked;
+    },
+    getRedaktoer: state => {
+        return state.enRedaktoer;
     }
 }
 

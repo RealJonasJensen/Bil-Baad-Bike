@@ -21,6 +21,8 @@ import AdminPriser from "./components/Admin/Priser/Priser.vue";
 import RedigerPriserEn from "./components/Admin/Priser/PriserRedigerEn.vue";
 import NyPris from "./components/Admin/Priser/NyPris.vue";
 import Beskeder from "./components/Admin/Beskeder/Beskeder.vue";
+import RedigerRedaktoer from "./components/Admin/RedigerRedaktoer/RedigerRedaktoer.vue";
+import enRedaktoer from "./components/Admin/RedigerRedaktoer/enRedaktoer.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +42,8 @@ export const routes = [
     { path: "/admin/priser/opret", component: NyPris }, // Fjern snart
     { path: "/admin/priser/:id", component: RedigerPriserEn }, // Fjern snart
     { path: "/admin/beskeder/", component: Beskeder }, // Fjern snart
+    { path: "/admin/redigerredaktoer", component: RedigerRedaktoer }, // Fjern snart
+    { path: "/admin/redigerredaktoer/:id", component: enRedaktoer }, // Fjern snart
     {
         path: "/login", component: Login, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next("/admin") } else { next() }

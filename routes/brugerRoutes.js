@@ -7,6 +7,9 @@ const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const passport = require("passport");
 
+// Models
+const Bruger = require("../models/brugere");
+
 // Validation
 const validateRegisterInput = require("../validation/registerValidation");
 const validateLoginInput = require("../validation/loginValidation");
@@ -104,8 +107,26 @@ router.post("/login", (req, res) => {
 // @desc     Get redaktionen
 // @access   Public
 router.get("/redaktionen", (req, res) => {
-    Bruger.find({ type: "redaktoer" }, { navn: 1, billede: 1, tekst: 1, email: 1, redaktion: 1 }).sort({ navn: 1 })
+    Bruger.find({}, { navn: 1, billede: 1, tekst: 1, email: 1, redaktion: 1, type: 1 }).sort({ navn: 1 })
         .then(brugere => res.json(brugere))
+        .catch(err => res.status(404).json({ error: "Ingen redaktion fundet" }))
+})
+
+// @route    GET api/brugere/:id
+// @desc     Get One
+// @access   Public
+router.get("/redaktion/:id", (req, res) => {
+    Bruger.findById(req.params.id, { navn: 1, billede: 1, tekst: 1, email: 1, redaktion: 1, type: 1 })
+        .then(bruger => res.json(bruger))
+        .catch(err => res.status(404).json({ error: "Ingen redaktion fundet" }))
+})
+
+// @route    PUT api/brugere/:id
+// @desc     Update a user
+// @access   PRIVATE
+router.put("/redaktion/:id", (req, res) => {
+    Bruger.findByIdAndUpdate(req.params.id, req.body)
+        .then(bruger => res.json(bruger))
         .catch(err => res.status(404).json({ error: "Ingen redaktion fundet" }))
 })
 

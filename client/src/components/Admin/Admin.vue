@@ -5,7 +5,7 @@
         <div class="admin-br"></div>
         <div class="admin-indhold">
             <router-link tag="div" class="admin-btn" to="/admin/register">Registrer Ny Redaktør/Admin</router-link>
-            <router-link tag="div" class="admin-btn" to="/">Rediger Redaktør</router-link>
+            <router-link tag="div" class="admin-btn" to="/admin/redigerredaktoer">Rediger Redaktør</router-link>
             <router-link tag="div" class="admin-btn" to="/admin/beskeder">Administrer beskeder</router-link>
             <router-link tag="div" class="admin-btn" to="/admin/opret">Opret Ny Artikel</router-link>
             <router-link tag="div" class="admin-btn" to="/admin/rediger">Rediger Artikel</router-link>
