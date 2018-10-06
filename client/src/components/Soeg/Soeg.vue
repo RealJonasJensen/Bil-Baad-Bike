@@ -5,7 +5,9 @@
         <h1 class="soeg-h1" >Søg</h1>
         <div class="soeg-br"></div>
         <div class="soeg-indhold">
-            <div v-if="loading" >Loading..</div>
+            <div v-if="loading" >
+                <app-spinner></app-spinner>
+            </div>
             <div v-else-if="!loading">
                 <p class="soeg-tekst" > Din søgning på <span>{{this.$route.path.split("/")[2]}}</span> returnerede <span>{{soeg.length}}</span> artikler </p>
 
@@ -26,6 +28,7 @@
 </template>
 
 <script>
+import Spinner from "../UI/Spinner";
 import ArtikelObjekt from "../Artikel/ArtikelObjekt";
 export default {
   data() {
@@ -34,7 +37,8 @@ export default {
     };
   },
   components: {
-    appArtikelObjekt: ArtikelObjekt
+    appArtikelObjekt: ArtikelObjekt,
+    appSpinner: Spinner
   },
   computed: {
     soeg() {

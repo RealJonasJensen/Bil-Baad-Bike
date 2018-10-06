@@ -155,6 +155,15 @@ router.get("/redaktion/:id", (req, res) => {
         .catch(err => res.status(404).json({ error: "Ingen redaktion fundet" }))
 })
 
+// @route    DELETE api/brugere/:id
+// @desc     Delete One
+// @access   Private
+router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Bruger.findByIdAndRemove(req.params.id)
+        .then(bruger => res.json(bruger))
+        .catch(err => res.status(404).json({ error: "Ingen redaktør fundet" }))
+})
+
 // @route    PUT api/brugere/:id
 // @desc     Update a user
 // @access   Private

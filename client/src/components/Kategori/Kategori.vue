@@ -17,13 +17,14 @@
         </div>
         </div>
         <div v-else>
-            Loading...
+            <app-spinner></app-spinner>
         </div>
     </div>
 </template>
 
 <script>
 import ArtikelObjekt from "../Artikel/ArtikelObjekt";
+import Spinner from "../UI/Spinner";
 export default {
   data() {
     return {
@@ -61,7 +62,8 @@ export default {
     }
   },
   components: {
-    appArtikelObjekt: ArtikelObjekt
+    appArtikelObjekt: ArtikelObjekt,
+    appSpinner: Spinner
   },
   created() {
     const sti = this.$route.path.split("/")[1];

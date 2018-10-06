@@ -15,6 +15,7 @@
                     </p>
                 <router-link :to="'/admin/redigerredaktoer/' + item._id" tag="button">Rediger Profil</router-link>
                 <router-link :to="'/admin/redigerbillede/' + item._id" tag="button">Rediger Billede</router-link>
+                <button @click="onSlet(item._id, item.navn)" tag="button">Slet Bruger</button>
                 </div>
             </div>
         </div>
@@ -23,6 +24,13 @@
 
 <script>
 export default {
+  methods: {
+    onSlet(id, navn) {
+      if (confirm("Er du sikker på du vil slette " + navn + "?")) {
+        this.$store.dispatch("sletRedaktoer", id);
+      }
+    }
+  },
   computed: {
     redaktion() {
       return this.$store.getters.getRedaktion;

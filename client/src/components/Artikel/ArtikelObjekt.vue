@@ -1,6 +1,6 @@
 <template>
     <div v-if="objekt" :style="artikelObjektStyle" class="artikel-objekt" >
-        <h2>{{objekt.overskrift | overskrift(objekt.overskrift) }}</h2>
+        <h2>{{objekt.overskrift | overskrift(objekt.overskrift, this.$route.path) }}</h2>
         <p class="artikel-dato" ><font-awesome-icon class="artikel-icon" icon="clock" />{{objekt.oprettet | dato(objekt.oprettet)}}</p>
         <p class="artikel-kommentarer"> <font-awesome-icon class="artikel-icon" icon="comments" />{{objekt.kommentarer.length}} KOMMENTARER</p>
         <p class="artikel-visninger"><font-awesome-icon class="artikel-icon" icon="eye" />{{objekt.klik}} {{objekt.klik === 1 ? "VISNING" : "VISNINGER"}}</p>
@@ -18,8 +18,9 @@ export default {
   data() {
     return {
       artikelObjektStyle: {
-        width: this.sti ? "100%" : "50%",
-        padding: "0 1%"
+        width: this.sti ? "100%" : "48%",
+        padding: "0 1px 0 0",
+        margin: "0 1% 0 0"
       }
     };
   }
@@ -89,10 +90,15 @@ p {
 
 .artikel-tekst {
   padding-bottom: 5px;
+  font-size: 13px;
 }
 
 .artikel-icon {
   margin-right: 5px;
   font-size: 13px;
+}
+
+.artikel-tekst {
+  margin-top: 5px;
 }
 </style>

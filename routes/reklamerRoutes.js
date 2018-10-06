@@ -9,12 +9,9 @@ const passport = require("passport");
 // Multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        // console.log(file)
         cb(null, "./client/src/assets/reklamer");
     },
     filename: (req, file, cb) => {
-        // console.log(req)
-        // console.log(file)
         cb(null, new Date().toISOString() + file.originalname)
     },
 
@@ -64,15 +61,14 @@ router.get("/5", (req, res) => {
     ])
         .then(reklamer => res.json(reklamer))
         .catch(err => console.log(err))
-
 })
 
 // @route    POST api/reklamer
 // @desc     New reklame
 // @access   Private
 router.post("/", passport.authenticate("jwt", { session: false }), upload.single("billede"), (req, res) => {
-    console.log(req.body)
-    console.log(req.file)
+    // console.log(req.body)
+    // console.log(req.file)
     const filNavn = new Date().toISOString() + req.file.originalname;
     const { errors, isValid } = validateSponsorInput(req.body);
     if (!isValid) {

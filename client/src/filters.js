@@ -8,14 +8,18 @@ Vue.filter('striphtml', function (value) {
     return text;
 });
 
-Vue.filter("text", (tekst, path) => {
-    if (tekst.length > 500 && path !== "/") {
-        return tekst.substring(0, 499) + " ...";
+Vue.filter("text", (value, tekst, path) => {
+    // console.log(tekst, path)
+    if (tekst.length > 200 && path == "/arkiv") {
+        return tekst.substring(0, 199) + " ...";
     } else if (
         tekst.length > 200 &&
         path === "/"
     ) {
         return tekst.substring(0, 199) + " ...";
+    } else if (tekst.length > 500 && path !== "/") {
+        return tekst.substring(0, 499) + " ...";
+
     }
     return tekst;
 })
@@ -32,11 +36,12 @@ Vue.filter("kategori", (kategori) => {
     else return "Bil"
 })
 
-Vue.filter("overskrift", (overskrift) => {
-    if (overskrift.length > 28) {
+Vue.filter("overskrift", (value, overskrift, path) => {
+    console.log(overskrift, path)
+    if (path !== "/") return overskrift
+    else {
         return overskrift.substring(0, 27) + " ...";
     }
-    return overskrift;
 })
 
 Vue.filter("dato", (oprettet) => {

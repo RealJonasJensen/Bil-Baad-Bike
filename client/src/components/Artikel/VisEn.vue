@@ -1,5 +1,7 @@
 <template>
     <div>
+        <div v-if="!artiklerLoading">
+
         <p class="artikel-sti" >Forside / {{overskrift}} <span>/ Vis artikel</span></p>
         <h1>{{artikel.overskrift}}</h1>
         <div class="artikel-br"></div>
@@ -50,11 +52,17 @@
             </div>
 
         </div>
+        </div>
+
+         <div v-else>
+            <app-spinner></app-spinner>
+        </div>
     </div>
 </template>
 
 <script>
 import Kommentar from "./Kommentar";
+import Spinner from "../UI/Spinner";
 import { required, email } from "vuelidate/lib/validators";
 export default {
   data() {
@@ -98,6 +106,9 @@ export default {
       } else if (sti === "bike") {
         return "Bike's";
       }
+    },
+    artiklerLoading() {
+      return this.$store.getters.artiklerLoading;
     },
     datoArtikel() {
       let dato = this.artikel.oprettet;
@@ -154,7 +165,8 @@ export default {
     }
   },
   components: {
-    appKommentar: Kommentar
+    appKommentar: Kommentar,
+    appSpinner: Spinner
   },
   created() {
     this.$store.dispatch("hentEn", this.$route.path.split("/")[2]);

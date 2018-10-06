@@ -14,7 +14,7 @@ const validateArtikelInput = require("../validation/artikelValidation");
 // @desc    Get all articles
 // @access  Public
 router.get("/", (req, res) => {
-    Artikel.find({})
+    Artikel.find({}).sort({ oprettet: -1 })
         .then(artikler => res.json(artikler))
         .catch(err => res.status(404).json({ error: "Ingen artikler blev fundet" }))
 })

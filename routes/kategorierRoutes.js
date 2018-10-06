@@ -1,6 +1,7 @@
 // Modules
-const express = require("express")
+const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
 // Models
 const Kategori = require("../models/kategorier");
@@ -20,9 +21,9 @@ router.get("/", (req, res) => {
 // @route    PUT api/kategorier
 // @desc     Update kategorier
 // @access   Private
-router.put("/", (req, res) => {
+router.put("/", passport.authenticate("jwt", { session: false }), (req, res) => {
     //console.log(req.body)
-    Kategori.findByIdAndUpdate("5bb883abf2b44e75d8335eee", passport.authenticate("jwt", { session: false }), req.body)
+    Kategori.findByIdAndUpdate("5bb883abf2b44e75d8335eee", req.body)
         .then(kategori => res.json(kategori))
         .catch(err => console.log(err))
 })

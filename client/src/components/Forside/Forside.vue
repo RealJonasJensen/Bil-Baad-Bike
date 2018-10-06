@@ -3,16 +3,24 @@
         <h1>SENESTE ARTIKLER</h1>
         <div class="forside-br" ></div>
         <div class="forside-indhold">
-            <app-artikel-objekt v-for="(item, index) in seneste" :key="index" :objekt="item"  ></app-artikel-objekt>
+            <div v-if="artiklerLoading">
+                <app-spinner></app-spinner>
+            </div>  
+            <div v-else>
+                <app-artikel-objekt v-for="(item, index) in seneste" :key="index" :objekt="item"></app-artikel-objekt>
+            </div>
+
         </div>
     </div>
 </template>
 
 <script>
+import Spinner from "../UI/Spinner";
 import ArtikelObjekt from "../Artikel/ArtikelObjekt";
 export default {
   components: {
-    appArtikelObjekt: ArtikelObjekt
+    appArtikelObjekt: ArtikelObjekt,
+    appSpinner: Spinner
   },
   created() {
     this.$store.dispatch("hentSeneste");
@@ -21,6 +29,9 @@ export default {
   computed: {
     seneste() {
       return this.$store.getters.seneste;
+    },
+    artiklerLoading() {
+      return this.$store.getters.artiklerLoading;
     }
   }
 };

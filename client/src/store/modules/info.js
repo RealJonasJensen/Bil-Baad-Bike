@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from "../../router";
+import store from "../store";
 
 const state = {
     kontaktInfo: {},
@@ -109,6 +110,15 @@ const actions = {
             .then(res => {
                 console.log(res.data);
                 router.replace("/admin/redigerredaktoer")
+            })
+            .catch(err => console.log(err))
+    },
+    sletRedaktoer({ dispatch }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
+        axios.delete("/brugere/" + payload)
+            .then(res => {
+                console.log(res.data)
+                dispatch("hentRedaktion")
             })
             .catch(err => console.log(err))
     },
