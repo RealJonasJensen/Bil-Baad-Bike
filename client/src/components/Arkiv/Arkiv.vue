@@ -33,6 +33,7 @@ export default {
   created() {
     this.$store.dispatch("hentAlle");
     this.$store.dispatch("mestSete");
+    this.$store.dispatch("hent5SponsorBilleder");
   }
 };
 </script>

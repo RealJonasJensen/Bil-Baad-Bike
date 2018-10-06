@@ -31,6 +31,9 @@ export default {
   },
   created() {
     this.$store.dispatch("hentKontakt");
+    this.$store.dispatch("hent5SponsorBilleder");
+    this.$store.dispatch("mestSete");
+    this.$store.dispatch("hentKategorier");
   }
 };
 </script>

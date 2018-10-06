@@ -20,6 +20,18 @@ Vue.filter("text", (tekst, path) => {
     return tekst;
 })
 
+Vue.filter("menu", kategori => {
+    if (kategori === "baad") return "BÅDE"
+    else if (kategori === "bike") return "BIKE'S"
+    else return "BILER"
+})
+
+Vue.filter("kategori", (kategori) => {
+    if (kategori === "baad") return "Båd"
+    else if (kategori === "bike") return "Bike"
+    else return "Bil"
+})
+
 Vue.filter("overskrift", (overskrift) => {
     if (overskrift.length > 28) {
         return overskrift.substring(0, 27) + " ...";

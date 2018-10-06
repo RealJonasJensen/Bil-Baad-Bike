@@ -4,9 +4,7 @@
         <h1>SPONSOR</h1>
         <div class="sponsor-br"></div>
         <div class="sponsor-indhold">
-            <p class="sponsor-tekst" >
-                {{sponsor.tekst}}
-            </p>
+            <p class="sponsor-tekst">{{sponsor.tekst}}</p>
             <div class="sponsor-info" >
                 <div class="sponsor-info-overskrift" >
                     <h3><font-awesome-icon class="artikel-icon" icon="eye" />Visninger</h3>
@@ -94,6 +92,7 @@ h1 {
   font-size: 14px;
   line-height: 25px;
   margin: 10px 0;
+  white-space: pre-wrap;
 }
 </style>
 

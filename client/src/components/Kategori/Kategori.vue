@@ -6,10 +6,10 @@
         <div class="kategori-br"></div>
         <div class="kategori-indhold">
             <div v-if="kategori.length > 5">
-                <paginate name="kategori" :per="5" :list="kategori" class="paginate-list">
+                <paginate name="kategori" :per="3" :list="kategori" class="paginate-list">
                     <app-artikel-objekt v-for="(item,index) in paginated('kategori')" :key="index" :objekt="item" sti="arkiv"></app-artikel-objekt>
                 </paginate>
-                <paginate-links for="kategori" :limit="5" :show-step-links="true" :step-links="{next: ' ', prev: ' '}"></paginate-links>
+                <paginate-links for="kategori" :limit="3" :show-step-links="true" :step-links="{next: ' ', prev: ' '}"></paginate-links>
             </div>
             <div v-else>
                 <app-artikel-objekt v-for="(item, index) in kategori" :key="index" :objekt="item" :sti="sti"></app-artikel-objekt>

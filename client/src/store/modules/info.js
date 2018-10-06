@@ -5,7 +5,8 @@ const state = {
     kontaktInfo: {},
     redaktion: [],
     enRedaktoer: {},
-    infoBesked: {}
+    infoBesked: {},
+    kategorier: {}
 }
 
 const mutations = {
@@ -20,10 +21,33 @@ const mutations = {
     },
     setEnRedaktoer(state, enRedaktoer) {
         state.enRedaktoer = enRedaktoer;
+    },
+    setKategorier(state, kategorier) {
+        state.kategorier = kategorier;
     }
 }
 
 const actions = {
+    opdaterKategorier({ }, payload) {
+        axios.put("/kategorier", payload)
+            .then(res => {
+                router.replace("/admin")
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    hentKategorier({ commit }) {
+        axios.get("/kategorier")
+            .then(res => {
+                console.log(res.data)
+                commit("setKategorier", res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
     nyNyhedsbrev({ commit }, payload) {
         axios.post("/nyhedsbrev", payload)
             .then(res => {
@@ -112,6 +136,9 @@ const getters = {
     },
     getRedaktoer: state => {
         return state.enRedaktoer;
+    },
+    getKategorier: state => {
+        return state.kategorier;
     }
 }
 

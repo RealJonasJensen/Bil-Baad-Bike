@@ -17,6 +17,7 @@
         <div class="sidebar-br">
         </div>
             <app-reklame-billede v-for="(item, index) in sponsorBilleder" :objekt="item" :key="index" ></app-reklame-billede>
+            <!-- <app-reklame-billede v-for="index in 5" :objekt="sponsorBilleder[index]" :key="index" ></app-reklame-billede> -->
             <router-link class="sidebar-link" to="/sponsor" tag="p">Din reklame her?</router-link>
     </div>
 </template>
@@ -46,7 +47,7 @@ export default {
   },
   computed: {
     sponsorBilleder() {
-      return this.$store.getters.getSponsorBilleder;
+      return this.$store.getters.getSponsorBilleder.slice(0, 5);
     },
     mestSete() {
       return this.$store.getters.mestSete;

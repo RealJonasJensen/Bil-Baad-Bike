@@ -6,7 +6,7 @@
         <p class="artikel-visninger"><font-awesome-icon class="artikel-icon" icon="eye" />{{objekt.klik}} {{objekt.klik === 1 ? "VISNING" : "VISNINGER"}}</p>
         <p class="artikel-tekst">{{objekt.tekst | text(objekt.tekst, this.$route.path) | striphtml}}</p>
 
-        <p v-if="!sti || sti === 'arkiv'" class="artikel-kategori" ><font-awesome-icon class="artikel-icon" icon="tag" />{{objekt.kategori.toUpperCase()}}</p>
+        <p v-if="!sti || sti === 'arkiv'" class="artikel-kategori" ><font-awesome-icon class="artikel-icon" icon="tag" />{{objekt.kategori === "baad" ? "BÅD" : objekt.kategori.toUpperCase()}}</p>
 
         <router-link :to="`/${objekt.kategori}/${objekt._id}`" tag="div" class="artikel-btn">LÆS MERE</router-link>
     </div>

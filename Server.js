@@ -14,6 +14,8 @@ const sponsorRoutes = require("./routes/sponsorRoutes");
 const kontaktRoutes = require("./routes/kontaktRoutes");
 const beskederRoutes = require("./routes/beskederRoutes");
 const logRoutes = require("./routes/logRoutes");
+const reklamerRoutes = require("./routes/reklamerRoutes");
+const kategorierRoutes = require("./routes/kategorierRoutes");
 
 // Passport Config
 require("./config/passport")(passport);
@@ -37,7 +39,9 @@ app.use("/api/nyhedsbrev", nyhedsbrevRoutes);
 app.use("/api/sponsor", sponsorRoutes);
 app.use("/api/kontakt", kontaktRoutes);
 app.use("/api/beskeder", beskederRoutes);
-app.use("/api/logs", logRoutes)
+app.use("/api/logs", logRoutes);
+app.use("/api/reklamer", reklamerRoutes);
+app.use("/api/kategorier", kategorierRoutes)
 
 // Server
 const PORT = process.env.PORT || 4000;

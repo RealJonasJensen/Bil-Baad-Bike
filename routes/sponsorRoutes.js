@@ -21,6 +21,12 @@ router.get("/", (req, res) => {
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 })
 
+router.put("/", (req, res) => {
+    Sponsor.findByIdAndUpdate("5bb1f8cb5ad48f261a8c8dda", req.body)
+        .then(sponsor => res.json(sponsor))
+        .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
+})
+
 // @route    GET api/sponsor/kategori/:id
 // @desc     Get sponsor by type
 // @access   Public

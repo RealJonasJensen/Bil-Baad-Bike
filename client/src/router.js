@@ -24,6 +24,10 @@ import Beskeder from "./components/Admin/Beskeder/Beskeder.vue";
 import RedigerRedaktoer from "./components/Admin/RedigerRedaktoer/RedigerRedaktoer.vue";
 import EnRedaktoer from "./components/Admin/RedigerRedaktoer/EnRedaktoer.vue";
 import RedigerBillede from "./components/Admin/RedigerRedaktoer/RedigerBillede.vue";
+import RedigerSponsor from "./components/Admin/Sponsor/RedigerSponsor.vue";
+import NySponsor from "./components/Admin/Sponsor/NySponsor.vue";
+import RedigerTekst from "./components/Admin/Sponsor/RedigerTekst.vue";
+import RedigerMenu from "./components/Admin/Menu/Menu.vue";
 
 Vue.use(VueRouter);
 
@@ -46,7 +50,10 @@ export const routes = [
     { path: "/admin/redigerredaktoer", component: RedigerRedaktoer }, // Fjern snart
     { path: "/admin/redigerredaktoer/:id", component: EnRedaktoer }, // Fjern snart
     { path: "/admin/redigerbillede/:id", component: RedigerBillede }, // ADmin
-
+    { path: "/admin/sponsor", component: RedigerSponsor }, // ADmin
+    { path: "/admin/nysponsor", component: NySponsor }, // ADmin
+    { path: "/admin/redigersponsor", component: RedigerTekst }, // ADmin
+    { path: "/admin/menu", component: RedigerMenu }, // ADmin
     {
         path: "/login", component: Login, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next("/admin") } else { next() }

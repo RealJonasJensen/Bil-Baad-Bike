@@ -76,9 +76,66 @@ const actions = {
                 console.log(err)
             })
     },
+    hentAlleSponsorBilleder({ commit }) {
+        commit("setSponsorLoading");
+        axios.get("/reklamer")
+            .then(res => {
+                console.log(res.data)
+                commit("setSponsorBilleder", res.data)
+            })
+            .catch(err => {
+                commit("setSponsorLoading");
+                console.log(err)
+            })
+    },
+    opdaterSponsorTekst({ }, payload) {
+        axios.put("/sponsor", payload)
+            .then(res => {
+                console.log(res.data)
+                alert("Sponsor Tekst Rettet!")
+                router.replace("/admin/sponsor")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    nySponsor({ }, payload) {
+        axios.post("/reklamer", payload)
+            .then(res => {
+                console.log(res.data)
+                alert("Sponsor Oprettet!")
+                router.replace("/admin/sponsor")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    sletSponsor({ dispatch }, payload) {
+        axios.delete("/reklamer/" + payload)
+            .then(res => {
+                console.log(res.data)
+                dispatch("hentAlleSponsorBilleder")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+    hent5SponsorBilleder({ commit }) {
+        commit("setSponsorLoading");
+        axios.get("/reklamer/5")
+            .then(res => {
+                //console.log(res.data)
+                commit("setSponsorLoading");
+                commit("setSponsorBilleder", res.data)
+            })
+            .catch(err => {
+                commit("setSponsorLoading");
+                console.log(err)
+            })
+    },
     hentSponsorBilleder({ commit }, payload) {
         commit("setSponsorLoading");
-        axios.get("/sponsor/kategori/" + payload)
+        axios.get("/reklamer/" + payload)
             .then(res => {
                 commit("setSponsorLoading");
                 commit("setSponsorBilleder", res.data)
@@ -93,11 +150,7 @@ const actions = {
 
 const getters = {
     getSponsorBilleder: state => {
-        const billeder = [];
-        for (let index = 0; index < 5; index++) {
-            billeder.push(state.sponsorBilleder[index])
-        }
-        return billeder;
+        return state.sponsorBilleder;
     },
     getSponsor: state => {
         return state.sponsor;
