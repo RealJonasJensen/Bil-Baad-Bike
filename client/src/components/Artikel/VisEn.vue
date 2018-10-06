@@ -26,7 +26,7 @@
         <div class="artikel-br"></div>
         <div class="kommentarer-indhold">
 
-            <app-kommentar v-for="(item) in artikel.kommentarer" :key="item.id" :artikelId="artikel._id" :kommentar="item" ></app-kommentar>
+            <app-kommentar v-for="(item) in artikel.kommentarer" :key="item.id" :type="artikel.kategori" :artikelId="artikel._id" :kommentar="item" ></app-kommentar>
 
         <h2 class="kommentar-h2" >Din kommentar</h2>
             <div class="kommentar-form" >

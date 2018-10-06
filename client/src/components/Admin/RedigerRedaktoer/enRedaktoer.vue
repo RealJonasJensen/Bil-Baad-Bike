@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="register-sti" >Admin / Rediger / <span>{{redaktoer.navn}}</span></p>
+        <p class="register-sti" >{{bruger.type === "admin" ? "Admin" : "Redaktør"}} / Rediger / <span>{{redaktoer.navn}}</span></p>
         <h1>Rediger {{redaktoer.navn}}</h1>
         <div class="register-br"></div>
         <div class="register-indhold">
@@ -16,7 +16,9 @@
                 <p>Tekst</p>
                 <textarea :class="{invalid: $v.formData.tekst.$error}" @blur="$v.formData.tekst.$touch()" type="text" v-model="formData.tekst"></textarea>
             </div>
+            <div v-if="bruger.type === 'admin'" >
             <div>
+              
                 <p>Rettigheder</p>
                 <div class="register-type">
                     <select :class="{invalid: $v.formData.type.$error}" @blur="$v.formData.type.$touch()" v-model="formData.type" @change="formData.type === 'admin' ? formData.redaktion = [] : null" >
@@ -36,6 +38,7 @@
                     <label for="baad">Både</label>
                     <label for="bike">Bike's</label>
                 </div>
+            </div>
             </div>
             <button :class="{validKnap: !$v.$invalid}" @click="onRediger" :disabled="$v.$invalid">Rediger profil!</button>
         </div>
@@ -65,6 +68,9 @@ export default {
   computed: {
     redaktoer() {
       return this.$store.getters.getRedaktoer;
+    },
+    bruger() {
+      return this.$store.getters.bruger;
     }
   },
   watch: {

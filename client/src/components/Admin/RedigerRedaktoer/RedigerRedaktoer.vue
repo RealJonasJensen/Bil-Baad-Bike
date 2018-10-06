@@ -1,10 +1,10 @@
 <template>
     <div>
-        <p class="admin-sti" >Admin / <span>Rediger Redaktion</span></p>
+        <p class="admin-sti" >{{bruger.type === "admin" ? "Admin" : "Redaktør"}} / <span>Rediger Redaktion</span></p>
         <h1>Rediger Redaktion</h1>
         <div class="admin-br"></div>
         <div class="admin-indhold">
-            <div class="admin-redaktion" v-for="(item, index) in redaktion" :key="index">
+            <div class="admin-redaktion" v-for="(item, index) in redaktion" :key="index" v-if="item._id === bruger.id || bruger.type === 'admin'" >
                 <div class="admin-img">
                     <img :src="'../../../../src/assets/redaktion/' + item.billede" :alt="item.navn">
                 </div>
@@ -26,6 +26,9 @@ export default {
   computed: {
     redaktion() {
       return this.$store.getters.getRedaktion;
+    },
+    bruger() {
+      return this.$store.getters.bruger;
     }
   },
   created() {

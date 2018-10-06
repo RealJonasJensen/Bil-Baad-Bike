@@ -29,6 +29,7 @@ const mutations = {
 
 const actions = {
     opdaterKategorier({ }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/kategorier", payload)
             .then(res => {
                 router.replace("/admin")
@@ -80,7 +81,8 @@ const actions = {
             .catch(err => console.log(err))
     },
     opdaterKontakt({ commit }, payload) {
-        console.log(payload);
+        //console.log(payload);
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/kontakt", payload)
             .then(res => {
                 console.log(res.data)
@@ -92,7 +94,8 @@ const actions = {
             })
     },
     opdaterRedaktoerBillede({ }, payload) {
-        console.log(payload)
+        // console.log(payload)
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/brugere/redaktion/billede/" + payload.id, payload.data)
             .then(res => {
                 console.log(res.data)
@@ -101,6 +104,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     opdaterRedaktoer({ }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/brugere/redaktion/" + payload.id, payload)
             .then(res => {
                 console.log(res.data);
@@ -109,6 +113,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     hentEnRedaktoer({ commit }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.get("/brugere/redaktion/" + payload)
             .then(res => {
                 commit("setEnRedaktoer", res.data)

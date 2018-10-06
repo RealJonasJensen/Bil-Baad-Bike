@@ -3,6 +3,7 @@ const express = require("express")
 const router = express.Router();
 const multer = require("multer");
 const sharp = require("sharp");
+const passport = require("passport");
 
 
 // Multer
@@ -68,8 +69,8 @@ router.get("/5", (req, res) => {
 
 // @route    POST api/reklamer
 // @desc     New reklame
-// @access   Public
-router.post("/", upload.single("billede"), (req, res) => {
+// @access   Private
+router.post("/", passport.authenticate("jwt", { session: false }), upload.single("billede"), (req, res) => {
     console.log(req.body)
     console.log(req.file)
     const filNavn = new Date().toISOString() + req.file.originalname;
@@ -107,7 +108,7 @@ router.get("/:id", (req, res) => {
 // @route    DELETE api/reklamer/:id
 // @desc     Delete reklame by id
 // @access   Private
-router.delete("/:id", (req, res) => {
+router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Reklame.findByIdAndRemove(req.params.id)
         .then(reklamer => res.json(reklamer))
         .catch(err => console.log(err))

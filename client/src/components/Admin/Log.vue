@@ -2,7 +2,7 @@
         <div class="admin-log"  >
                 <div>
                 <p>{{dato}}</p>
-                    <button @click="onSlet(objekt._id)">Slet</button>
+                    <button v-if="bruger.type === 'admin'" @click="onSlet(objekt._id)">Slet</button>
                 </div>
                     <p><span>{{objekt.brugerNavn}}</span> {{objekt.tekst}} <span>{{objekt.artikelNavn}}</span></p>
         </div>
@@ -25,6 +25,9 @@ export default {
     }
   },
   computed: {
+    bruger() {
+      return this.$store.getters.bruger;
+    },
     dato() {
       let dato = this.mutedObjekt.oprettet;
       let time = dato.split("T")[1].split(":");

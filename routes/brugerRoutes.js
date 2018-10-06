@@ -158,7 +158,7 @@ router.get("/redaktion/:id", (req, res) => {
 // @route    PUT api/brugere/:id
 // @desc     Update a user
 // @access   Private
-router.put("/redaktion/:id", (req, res) => {
+router.put("/redaktion/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Bruger.findByIdAndUpdate(req.params.id, req.body)
         .then(bruger => res.json(bruger))
         .catch(err => res.status(404).json({ error: "Ingen redaktion fundet" }))
@@ -167,7 +167,7 @@ router.put("/redaktion/:id", (req, res) => {
 // @route    PUT api/brugere/billede/:id
 // @desc     Update a users image 
 // @access   Private
-router.put("/redaktion/billede/:id", upload.single("billede"), (req, res) => {
+router.put("/redaktion/billede/:id", passport.authenticate("jwt", { session: false }), upload.single("billede"), (req, res) => {
     const filNavn = new Date().toISOString() + req.file.originalname;
     const data = { billede: filNavn }
     //console.log(req.file)

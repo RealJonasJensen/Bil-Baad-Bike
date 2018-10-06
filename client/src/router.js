@@ -41,29 +41,74 @@ export const routes = [
     { path: "/sponsor", component: Sponsor },
     { path: "/redaktionen", component: Redaktion },
     { path: "/soeg/:term", component: Soeg },
-    { path: "/admin", component: Admin }, // Fjern snart
-    { path: "/admin/kontakt", component: AdminKontakt }, // Fjern snart
-    { path: "/admin/priser", component: AdminPriser }, // Fjern snart
-    { path: "/admin/priser/opret", component: NyPris }, // Fjern snart
-    { path: "/admin/priser/:id", component: RedigerPriserEn }, // Fjern snart
-    { path: "/admin/beskeder/", component: Beskeder }, // Fjern snart
-    { path: "/admin/redigerredaktoer", component: RedigerRedaktoer }, // Fjern snart
-    { path: "/admin/redigerredaktoer/:id", component: EnRedaktoer }, // Fjern snart
+    // { path: "/admin", component: Admin }, // Fjern snart
+    {
+        path: "/admin/kontakt", component: AdminKontakt, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // Fjern snart
+    {
+        path: "/admin/priser", component: AdminPriser, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // Fjern snart
+    {
+        path: "/admin/priser/opret", component: NyPris, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // Fjern snart
+    {
+        path: "/admin/priser/:id", component: RedigerPriserEn, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // Fjern snart
+    {
+        path: "/admin/beskeder/", component: Beskeder, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // Fjern snart
+    {
+        path: "/admin/redigerredaktoer", component: RedigerRedaktoer, beforeEnter: (to, from, next) => {
+            if (store.state.login.isAuthenticated) { next() } else { next("/") }
+        }
+    }, // Fjern snart
+    {
+        path: "/admin/redigerredaktoer/:id", component: EnRedaktoer, beforeEnter: (to, from, next) => {
+            //console.log(router)
+            if (store.state.login.isAuthenticated) { next() } else { next("/") }
+        }
+    }, // Fjern snart
     { path: "/admin/redigerbillede/:id", component: RedigerBillede }, // ADmin
-    { path: "/admin/sponsor", component: RedigerSponsor }, // ADmin
-    { path: "/admin/nysponsor", component: NySponsor }, // ADmin
-    { path: "/admin/redigersponsor", component: RedigerTekst }, // ADmin
-    { path: "/admin/menu", component: RedigerMenu }, // ADmin
+    {
+        path: "/admin/sponsor", component: RedigerSponsor, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // ADmin
+    {
+        path: "/admin/nysponsor", component: NySponsor, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // ADmin
+    {
+        path: "/admin/redigersponsor", component: RedigerTekst, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // ADmin
+    {
+        path: "/admin/menu", component: RedigerMenu, beforeEnter: (to, from, next) => {
+            if (store.state.login.bruger.type === "admin") { next() } else { next("/") }
+        }
+    }, // ADmin
     {
         path: "/login", component: Login, beforeEnter: (to, from, next) => {
             if (store.state.login.isAuthenticated) { next("/admin") } else { next() }
         }
     },
-    // {
-    //     path: "/admin", component: Admin, beforeEnter: (to, from, next) => {
-    //         if (store.state.login.isAuthenticated) { next() } else { next("/") }
-    //     }
-    // },
+    {
+        path: "/admin", component: Admin, beforeEnter: (to, from, next) => {
+            if (store.state.login.isAuthenticated) { next() } else { next("/") }
+        }
+    },
     {
         path: "/admin/register", component: Register, beforeEnter: (to, from, next) => {
             if (store.state.login.bruger.type === "admin") { next() } else { next("/") }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="rediger-sti" >Admin / <span>Rediger </span> </p>
+        <p class="rediger-sti" >{{bruger.type === "admin" ? "Admin" : "Redaktør"}} / <span>Rediger </span> </p>
         <h1>{{artikel.overskrift}}</h1>
         <div class="rediger-br"></div>
         <div class="rediger-indhold">
@@ -45,7 +45,10 @@ export default {
   },
   methods: {
     onRediger() {
-      const data = { ...this.formData, id: this.$route.path.split("/")[3] };
+      const data = {
+        ...this.formData,
+        id: this.$route.path.split("/")[3]
+      };
       console.log(data);
       this.$store.dispatch("redigerEn", data);
     }

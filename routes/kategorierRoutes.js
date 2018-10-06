@@ -16,9 +16,13 @@ router.get("/", (req, res) => {
         })
 })
 
+
+// @route    PUT api/kategorier
+// @desc     Update kategorier
+// @access   Private
 router.put("/", (req, res) => {
     //console.log(req.body)
-    Kategori.findByIdAndUpdate("5bb883abf2b44e75d8335eee", req.body)
+    Kategori.findByIdAndUpdate("5bb883abf2b44e75d8335eee", passport.authenticate("jwt", { session: false }), req.body)
         .then(kategori => res.json(kategori))
         .catch(err => console.log(err))
 })
@@ -26,14 +30,14 @@ router.put("/", (req, res) => {
 // @route    POST api/kategorier
 // @desc     Create kategorier
 // @access   Public
-router.post("/", (req, res) => {
-    const newKategori = new Kategori({
-        kategorier: req.body.kategorier
-    })
-    newKategori.save()
-        .then(kategori => res.json(kategori))
-        .catch(err => console.log(err))
-})
+// router.post("/", (req, res) => {
+//     const newKategori = new Kategori({
+//         kategorier: req.body.kategorier
+//     })
+//     newKategori.save()
+//         .then(kategori => res.json(kategori))
+//         .catch(err => console.log(err))
+// })
 
 
 module.exports = router;

@@ -12,7 +12,7 @@
                 <router-link to="/arkiv" tag="li" activeClass="aktiv">ARKIVET</router-link>
                 <router-link to="/kontakt" tag="li" activeClass="aktiv">KONTAKT</router-link>
                 <router-link to="/redaktionen" tag="li" activeClass="aktiv">REDAKTIONEN</router-link>
-                <router-link v-if="login" to="/admin" tag="li" activeClass="aktiv">ADMIN</router-link>
+                <router-link v-if="login" to="/admin" tag="li" activeClass="aktiv">{{bruger.type === "admin" ? "ADMIN" : "REDAKTØR"}}</router-link>
                 <p v-if="login">{{bruger.navn.split(" ")[0].toUpperCase()}}</p>
                 <a v-if="login" @click="onLogout">LOG UD</a>
             </ul>

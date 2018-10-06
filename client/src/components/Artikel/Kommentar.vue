@@ -8,9 +8,11 @@
                     <p class="kommentar-info-dato" ><font-awesome-icon class="kommentar-icon" icon="clock" />{{datoKommentar}}</p>
                     <p v-if="!redigerKommentar" class="kommentar-info-kommentar">{{kommentar.kommentar}}</p>
                     <textarea  :class="{invalid: $v.nyKommentar.$error}" @blur="$v.nyKommentar.$touch()" v-if="redigerKommentar" v-model="nyKommentar"  cols="30" rows="5"></textarea>
-                    <button @click="onSend(kommentar._id)" class="kommentar-knap" :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" v-if="redigerKommentar" >Bekræft</button>
-                    <button v-if="!redigerKommentar" @click="onSlet(kommentar._id)">Slet</button>
-                    <button @click="onRediger">Rediger</button>
+                    <div v-if="bruger.redaktion.includes(type) || bruger.type === 'admin'">
+                        <button  @click="onSend(kommentar._id)" class="kommentar-knap" :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" v-if="redigerKommentar" >Bekræft</button>
+                        <button v-if="!redigerKommentar" @click="onSlet(kommentar._id)">Slet</button>
+                        <button @click="onRediger">Rediger</button>
+                    </div>
                     <div class="kommentar-br" ></div>
                 </div>
         </div>
@@ -19,7 +21,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 export default {
-  props: ["kommentar", "artikelId"],
+  props: ["kommentar", "artikelId", "type"],
   data() {
     return {
       nyKommentar: "",
@@ -58,6 +60,9 @@ export default {
     }
   },
   computed: {
+    bruger() {
+      return this.$store.getters.bruger;
+    },
     datoKommentar() {
       let dato = this.mutedKommentar.oprettet;
       let time = dato.split("T")[1].split(":");

@@ -54,6 +54,7 @@ const mutations = {
 
 const actions = {
     sletLog({ dispatch }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/logs/" + payload)
             .then(res => {
                 console.log(res.data)
@@ -64,6 +65,7 @@ const actions = {
             })
     },
     hentLogs({ commit }) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.get("/logs")
             .then(res => {
                 commit("setLogs", res.data)
@@ -73,7 +75,8 @@ const actions = {
             })
     },
     nyLog({ }, payload) {
-        console.log(payload);
+        //console.log(payload);
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.post("/logs", payload)
             .then(res => {
                 console.log(res.data)
@@ -136,7 +139,7 @@ const actions = {
             })
     },
     sletEn({ dispatch }, payload) {
-        console.log(payload)
+        //console.log(payload)
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/artikler/" + payload)
             .then(res => {
@@ -175,7 +178,8 @@ const actions = {
             })
     },
     sletKommentar({ dispatch }, payload) {
-        console.log(payload)
+        //console.log(payload)
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/artikler/" + payload.artikelId + "/kommentar/" + payload.kommentarId)
             .then(res => {
                 console.log(res.data)
@@ -184,6 +188,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     retKommentar({ dispatch }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/artikler/" + payload.artikelId + "/kommentar/" + payload.kommentarId, payload)
             .then(res => {
                 console.log(res.data)

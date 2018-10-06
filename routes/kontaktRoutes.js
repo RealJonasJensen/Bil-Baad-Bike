@@ -1,6 +1,7 @@
 // Modules
 const express = require("express")
 const router = express.Router();
+const passport = require("passport")
 
 // Models
 const Kontakt = require("../models/kontakt");
@@ -20,7 +21,7 @@ router.get("/", (req, res) => {
 // @route    PUT api/kontakt
 // @desc     Update contact info
 // @access   Private
-router.put("/", (req, res) => {
+router.put("/", passport.authenticate("jwt", { session: false }), (req, res) => {
     const { errors, isValid } = validateKontaktInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors)

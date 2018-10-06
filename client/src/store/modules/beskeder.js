@@ -14,6 +14,7 @@ const mutations = {
 
 const actions = {
     sletBesked({ dispatch }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/beskeder/" + payload)
             .then(res => {
                 console.log(res.data)

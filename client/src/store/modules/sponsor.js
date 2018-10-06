@@ -27,7 +27,8 @@ const mutations = {
 
 const actions = {
     nyPris({ commit }, payload) {
-        console.log(payload)
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
+        //console.log(payload)
         axios.post("/sponsor/priser", payload)
             .then(res => {
                 console.log(res.data)
@@ -36,6 +37,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     redigerPris({ dispatch }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/sponsor/priser/" + payload.id, payload)
             .then(res => {
                 console.log(res.data)
@@ -44,6 +46,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     sletPris({ dispatch }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/sponsor/priser/" + payload)
             .then(res => {
                 console.log(res.data)
@@ -53,6 +56,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     hentEnPris({ commit }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         console.log(payload)
         axios.get("/sponsor/priser/" + payload)
             .then(res => {
@@ -89,6 +93,7 @@ const actions = {
             })
     },
     opdaterSponsorTekst({ }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/sponsor", payload)
             .then(res => {
                 console.log(res.data)
@@ -100,6 +105,7 @@ const actions = {
             })
     },
     nySponsor({ }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.post("/reklamer", payload)
             .then(res => {
                 console.log(res.data)
@@ -111,6 +117,7 @@ const actions = {
             })
     },
     sletSponsor({ dispatch }, payload) {
+        store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/reklamer/" + payload)
             .then(res => {
                 console.log(res.data)

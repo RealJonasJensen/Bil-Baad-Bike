@@ -1,12 +1,12 @@
 <template>
     <div>
-    <p class="rediger-sti" >Admin / <span>Rediger </span> </p>
+    <p class="rediger-sti" >{{bruger.type === "admin" ? "Admin" : "Redaktør"}} / <span>Rediger </span> </p>
         <h1>Rediger</h1>
         <div class="rediger-br"></div>
         <div class="rediger-indhold">
-        <div v-for="(item, index) in alle" :key="index" >
+        <div v-for="(item, index) in alle" :key="index" v-if="bruger.redaktion.includes(item.kategori) || bruger.type === 'admin'" >
             <div class="rediger">
-                <p class="rediger-overskrift">{{item.overskrift}} - {{item.kategori.toUpperCase()}}</p>
+                <p class="rediger-overskrift">{{item.overskrift}} - {{item.kategori | kategori }}</p>
                 <div class="rediger-knapper">
 
                     <router-link :to="'/admin/rediger/' + item._id" tag="button" class="knap-rediger">Rediger</router-link>
@@ -32,6 +32,9 @@ export default {
   computed: {
     alle() {
       return this.$store.getters.alle;
+    },
+    bruger() {
+      return this.$store.getters.bruger;
     }
   },
   created() {

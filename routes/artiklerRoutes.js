@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 // @desc    Get 6 recent
 // @access  Public
 router.get("/nylige", (req, res) => {
-    Artikel.find({}).limit(6)
+    Artikel.find({}).limit(6).sort({ oprettet: -1 })
         .then(artikler => res.json(artikler))
         .catch(err => res.status(404).json({ error: "Ingen artikler blev fundet" }))
 })
@@ -46,8 +46,7 @@ router.post("/soeg", (req, res) => {
     let soeg = req.body.soeg;
     if (soeg === "båd") { soeg = "baad" }
     Artikel.find()
-        .populate("forfatter", ["billede", "navn", "type", "tekst"])
-        //.or({ forfatter: { $regex: soeg } })
+        .or({ forfatterNavn: { $regex: soeg } })
         .or({ overskrift: { $regex: soeg } })
         .or({ tekst: { $regex: soeg } })
         .or({ kategori: { $regex: soeg } })
@@ -77,7 +76,7 @@ router.get("/:id", (req, res) => {
 // @desc    Get all articles by kategori
 // @access  Public
 router.get("/kategori/:id", (req, res) => {
-    Artikel.find({ kategori: req.params.id })
+    Artikel.find({ kategori: req.params.id }).sort({ oprettet: -1 })
         .then(artikler => res.json(artikler))
         .catch(err => res.status(404).json({ error: "Ingen artikler blev fundet" }))
 })
@@ -94,7 +93,8 @@ router.post("/", passport.authenticate("jwt", { session: false }), (req, res) =>
         tekst: req.body.tekst,
         overskrift: req.body.overskrift,
         forfatter: req.body.forfatter,
-        kategori: req.body.kategori
+        kategori: req.body.kategori,
+        forfatterNavn: req.body.forfatterNavn
     })
     newArticle.save()
         .then(product => res.json(product))
@@ -133,7 +133,7 @@ router.post("/:id/kommentar/", (req, res) => {
 // @route   DELETE api/artikler/:id/kommentar/:kommentarId
 // @desc    Delete a comment
 // @access  Private
-router.delete("/:id/kommentar/:kommentarId", (req, res) => {
+router.delete("/:id/kommentar/:kommentarId", passport.authenticate("jwt", { session: false }), (req, res) => {
     Artikel.findById(req.params.id)
         .then(artikel => {
             const nyeKommentarer = artikel.kommentarer.filter(kommentar => kommentar._id != req.params.kommentarId);
@@ -147,7 +147,7 @@ router.delete("/:id/kommentar/:kommentarId", (req, res) => {
 // @route   PUT api/artikler/:id/kommentar
 // @desc    Update a comment
 // @access  Private
-router.put("/:id/kommentar/:kommentarId", (req, res) => {
+router.put("/:id/kommentar/:kommentarId", passport.authenticate("jwt", { session: false }), (req, res) => {
     Artikel.findById(req.params.id)
         .then(artikel => {
             const kommentar = artikel.kommentarer.filter(kommentar => kommentar._id == req.params.kommentarId);

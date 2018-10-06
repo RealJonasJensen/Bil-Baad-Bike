@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 // @route   POST api/logs
 // @desc    Create log 
 // @access  Private
-router.post("/", (req, res) => {
+router.post("/", passport.authenticate("jwt", { session: false }), (req, res) => {
     const nyLog = new Log({
         artikel: req.body.artikelId,
         artikelNavn: req.body.artikelNavn,
@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
 // @route   DELETE api/logs/:id
 // @desc    Delete a log 
 // @access  Private
-router.delete("/:id", (req, res) => {
+router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Log.findByIdAndRemove(req.params.id)
         .then(artikel => {
             res.json({ success: true })

@@ -18,7 +18,8 @@ export default {
   data() {
     return {
       artikelObjektStyle: {
-        width: this.sti ? "100%" : "50%"
+        width: this.sti ? "100%" : "50%",
+        padding: "0 1%"
       }
     };
   }

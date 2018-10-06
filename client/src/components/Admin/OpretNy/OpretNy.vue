@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="opret-sti" >Admin <span>/ Opret</span></p>
+        <p class="opret-sti" >{{bruger.type === "admin" ? "Admin" : "Redaktør"}} <span>/ Opret</span></p>
         <h1>Opret</h1>
         <div class="opret-br"></div>
         <div class="opret-indhold">
@@ -50,7 +50,11 @@ export default {
   },
   methods: {
     onOpret() {
-      const data = { ...this.formData, forfatter: this.bruger.id };
+      const data = {
+        ...this.formData,
+        forfatter: this.bruger.id,
+        forfatterNavn: this.bruger.navn
+      };
       this.$store.dispatch("opretNy", data);
       console.log(data);
     }

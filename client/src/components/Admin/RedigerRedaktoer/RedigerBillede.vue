@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="register-sti" >Admin / Rediger / Billede / <span>{{redaktoer.navn}}</span></p>
+        <p class="register-sti" >{{bruger.type === "admin" ? "Admin" : "Redaktør"}} / Rediger / Billede / <span>{{redaktoer.navn}}</span></p>
         <h1>Billede {{redaktoer.navn}}</h1>
         <div class="register-br"></div>
         <div class="register-indhold">
@@ -46,6 +46,9 @@ export default {
   computed: {
     redaktoer() {
       return this.$store.getters.getRedaktoer;
+    },
+    bruger() {
+      return this.$store.getters.bruger;
     }
   },
   created() {

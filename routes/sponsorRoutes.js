@@ -1,6 +1,7 @@
 // Modules
 const express = require("express")
 const router = express.Router();
+const passport = require("passport");
 
 // Models
 const Sponsor = require("../models/sponsor");
@@ -43,7 +44,7 @@ router.get("/kategori/:id", (req, res) => {
 // @route    POST api/sponsor/sponsor
 // @desc     Create new sponsor
 // @access   Private
-router.post("/sponsor", (req, res) => {
+router.post("/sponsor", passport.authenticate("jwt", { session: false }), (req, res) => {
     const { errors, isValid } = validateSponsorInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors)
@@ -64,7 +65,7 @@ router.post("/sponsor", (req, res) => {
 // @route    POST api/sponsor/priser
 // @desc     Create new price
 // @access   Private
-router.post("/priser", (req, res) => {
+router.post("/priser", passport.authenticate("jwt", { session: false }), (req, res) => {
 
     const { errors, isValid } = validatePriserInput(req.body);
     if (!isValid) {
@@ -99,7 +100,7 @@ router.get("/priser/:id", (req, res) => {
 // @route    DELETE api/sponsor/priser/:id
 // @desc     DELETE sponsor by id
 // @access   Private
-router.delete("/priser/:id", (req, res) => {
+router.delete("/priser/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Sponsor.findById("5bb1f8cb5ad48f261a8c8dda")
         .then(sponsor => {
             const priser = sponsor.priser.filter(pris => pris._id != req.params.id);
@@ -113,7 +114,7 @@ router.delete("/priser/:id", (req, res) => {
 // @route    PUT api/sponsor/priser/:id
 // @desc     Update sponsor by id
 // @access   Private
-router.put("/priser/:id", (req, res) => {
+router.put("/priser/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Sponsor.findById("5bb1f8cb5ad48f261a8c8dda")
         .then(sponsor => {
             //console.log(sponsor.priser)

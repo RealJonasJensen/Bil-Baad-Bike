@@ -9,6 +9,10 @@ const artiklerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    forfatterNavn: {
+        type: String,
+        required: true
+    },
     forfatter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Bruger",

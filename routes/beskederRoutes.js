@@ -67,11 +67,6 @@ router.post("/", (req, res) => {
         })
         .catch(err => res.status(404).json({ error: "Intet blev fundet" }))
 
-
-
-
-
-
     // const nyBesked = new Besked({
     //     besked: req.body.besked,
     //     navn: req.body.navn,
@@ -88,7 +83,7 @@ router.post("/", (req, res) => {
 // @route    DELETE api/beskeder/:id
 // @desc     Delete message
 // @access   Private
-router.delete("/:id", (req, res) => {
+router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Besked.findByIdAndRemove(req.params.id)
         .then(artikel => {
             artikel.remove().then(() => res.json({ success: true }))

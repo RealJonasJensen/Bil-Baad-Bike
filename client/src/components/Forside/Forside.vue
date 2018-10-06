@@ -39,8 +39,8 @@ h1 {
   background-color: rgb(53, 53, 53);
 }
 
-.forside-indhold  {
+/* .forside-indhold  {
   display: grid;
   grid-template-columns: 50% 50%;
-}
+} */
 </style>
