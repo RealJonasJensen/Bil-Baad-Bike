@@ -1,10 +1,12 @@
 <template>
     <div>
-        <div v-if="!artiklerLoading" >
         <p class="kategori-sti" >Forside <span>/ {{overskrift}}</span></p>
         <h1 class="kategori-h1" >{{overskrift.toUpperCase()}}</h1>
         <div class="kategori-br"></div>
-        <div class="kategori-indhold">
+        <div class="kategori-indhold" v-if="artiklerLoading" >
+            <app-spinner></app-spinner>
+        </div>
+        <div class="kategori-indhold" v-else >
             <div v-if="kategori.length > 5">
                 <paginate name="kategori" :per="3" :list="kategori" class="paginate-list">
                     <app-artikel-objekt v-for="(item,index) in paginated('kategori')" :key="index" :objekt="item" sti="arkiv"></app-artikel-objekt>
@@ -14,10 +16,6 @@
             <div v-else>
                 <app-artikel-objekt v-for="(item, index) in kategori" :key="index" :objekt="item" :sti="sti"></app-artikel-objekt>
             </div>
-        </div>
-        </div>
-        <div v-else>
-            <app-spinner></app-spinner>
         </div>
     </div>
 </template>

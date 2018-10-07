@@ -9,7 +9,7 @@
                 <app-spinner></app-spinner>
             </div>
             <div v-else-if="!loading">
-                <p class="soeg-tekst" > Din søgning på <span>{{this.$route.path.split("/")[2]}}</span> returnerede <span>{{soeg.length}}</span> artikler </p>
+                <p class="soeg-tekst" > Din søgning på <span>{{this.$route.path.split("/")[2]}}</span> returnerede <span>{{soeg.length}}</span> {{soeg.length === 1 ? "artikel" : "artikler"}} </p>
 
                 <div v-if="soeg.length > 5">
                     <paginate name="soeg" :per="5" :list="soeg" class="paginate-list">

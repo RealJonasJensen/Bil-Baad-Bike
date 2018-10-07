@@ -57,13 +57,15 @@ export default {
         email: "",
         emne: "",
         besked: ""
-      }
+      },
+      send: false
     };
   },
   methods: {
     onSend() {
+      alert("Tak for din besked!");
       this.$store.dispatch("nyBesked", this.formData);
-      //console.log(this.formData);
+      this.$router.replace("/");
     }
   },
   computed: {

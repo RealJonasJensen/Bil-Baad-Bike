@@ -35,6 +35,7 @@ const mutations = {
 
 const actions = {
     login({ commit }, payload) {
+        console.log(payload)
         axios.post("/brugere/login", payload)
             .then(res => {
                 console.log(res.data)

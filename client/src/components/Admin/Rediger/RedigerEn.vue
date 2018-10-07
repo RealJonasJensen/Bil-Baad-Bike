@@ -12,6 +12,9 @@
                 <div class="rediger-tekst">
                     <p>Tekst</p>
                     <textarea :class="{invalid: $v.formData.tekst.$error}" @blur="$v.formData.tekst.$touch()" v-model="formData.tekst" cols="30" rows="20"></textarea>
+                    <p>Hvis du vil lave <i>kursiv</i> tekst skal du sætte &lt;i&gt; &lt;/i&gt; rundt om den tekst du gerne vil have kursiv</p>
+                    <p>Hvis du gerne vil lave en overksrift, skal du sætte &lt;h2&gt; &lt;/h2&gt; rundt om overskriften</p>
+                <br>
                 </div>
                 <p>Kategori: </p>
 

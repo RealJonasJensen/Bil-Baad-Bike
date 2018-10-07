@@ -79,4 +79,31 @@ export default {
   cursor: pointer;
   margin: 10px 0;
 }
+
+.paginate-links {
+  padding-top: 15px;
+  display: flex;
+  list-style-type: none;
+  width: 75%;
+  justify-content: left;
+}
+
+.number {
+  padding: 10px 0;
+}
+
+.number a,
+.ellipses a {
+  color: rgb(53, 53, 53);
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 7px 10px;
+  background-color: rgb(230, 230, 230);
+}
+
+.active a {
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 192, 0);
+}
 </style>

@@ -3,7 +3,10 @@
          <p class="arkiv-sti" >Forside<span> / Arkivet</span></p>
         <h1 class="arkiv-h1" >Arkivet</h1>
         <div class="arkiv-br"></div>
-        <div class="arkiv-indhold">
+        <div class="arkiv-indhold" v-if="artiklerLoading">
+            <app-spinner></app-spinner>
+        </div>
+        <div class="arkiv-indhold" v-else>
             <paginate name="alle" :per="5" :list="alle" class="paginate-list">
                 <app-artikel-objekt v-for="(item,index) in paginated('alle')" :key="index" :objekt="item" sti="arkiv"></app-artikel-objekt>
             </paginate>
@@ -16,6 +19,7 @@
 
 <script>
 import ArtikelObjekt from "../Artikel/ArtikelObjekt";
+import Spinner from "../UI/Spinner";
 export default {
   data() {
     return {
@@ -25,10 +29,14 @@ export default {
   computed: {
     alle() {
       return this.$store.getters.alle;
+    },
+    artiklerLoading() {
+      return this.$store.getters.artiklerLoading;
     }
   },
   components: {
-    appArtikelObjekt: ArtikelObjekt
+    appArtikelObjekt: ArtikelObjekt,
+    appSpinner: Spinner
   },
   created() {
     this.$store.dispatch("hentAlle");

@@ -37,13 +37,13 @@ router.post("/", (req, res) => {
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: kontakt[0].email,
+                    user: "bilerbaadebikes@gmail.com",
                     pass: 'biler123'
                 }
             });
 
             var mailOptions = {
-                from: kontakt[0].email,
+                from: "bilerbaadebikes@gmail.com",
                 to: kontakt[0].email,
                 subject: req.body.emne,
                 html: `
