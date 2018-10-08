@@ -191,7 +191,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/artikler/" + payload.artikelId + "/kommentar/" + payload.kommentarId, payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch("hentEn", res.data._id)
             })
             .catch(err => console.log(err))
@@ -214,7 +214,7 @@ const actions = {
         }
         axios.put("/artikler/klik/" + id, data)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch(err => console.log(err))
     },
