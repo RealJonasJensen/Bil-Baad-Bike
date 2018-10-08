@@ -31,7 +31,7 @@
 export default {
   computed: {
     sponsor() {
-      console.log();
+      //   console.log();
       return this.$store.getters.getSponsor;
     }
   },

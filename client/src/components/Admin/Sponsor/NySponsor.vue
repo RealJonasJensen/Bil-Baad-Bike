@@ -53,7 +53,7 @@ export default {
         const fd = new FormData();
         fd.append("billede", this.formData.billede);
         fd.append("kategori", this.formData.kategori);
-        console.log(fd);
+        // console.log(fd);
         this.$store.dispatch("nySponsor", fd);
       } else {
         alert("Intet billede er valgt");

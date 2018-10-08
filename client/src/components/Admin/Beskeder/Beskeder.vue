@@ -20,7 +20,7 @@
 export default {
   methods: {
     onSlet(id, navn) {
-      console.log(id, navn);
+      //   console.log(id, navn);
       if (
         confirm("Er du sikker på du vil slette denne besked fra " + navn + "?")
       )

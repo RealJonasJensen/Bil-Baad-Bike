@@ -13,7 +13,7 @@
                     <p class="artikel-visninger"><font-awesome-icon class="artikel-icon" icon="eye" />{{artikel.klik + 1}} {{artikel.klik + 1 === 1 ? "VISNING" : "VISNINGER"}}</p>
                 </div>
                 <div class="artikel-tekst" v-html="artikel.tekst"></div>
-                <div class="artikel-forfatter">
+                <div class="artikel-forfatter" v-if="artikel.forfatter">
                     <div class="forfatter-img">
                         <img :src="'../../../src/assets/redaktion/' + artikel.forfatter.billede" :alt="artikel.forfatter.navn">
                     </div>
@@ -22,6 +22,12 @@
                         <p class="forfatter-tekst" >{{artikel.forfatter.tekst}}</p>
                     </div>
                 </div>
+                <div class="artikel-forfatter-error" v-else>
+                    <p>
+                        <i>Denne artikel er skrevet af <b>{{artikel.forfatterNavn}}</b> som ikke er en del af redaktionen mere</i>
+                    </p>
+                </div>
+                
             </div>
         </div>
         <h1>KOMMENTARER</h1>
@@ -272,6 +278,10 @@ h1 {
   display: grid;
   grid-template-columns: 10% 90%;
   grid-gap: 3%;
+}
+
+.artikel-forfatter-error {
+  padding-top: 10px;
 }
 
 .forfatter-tekst {

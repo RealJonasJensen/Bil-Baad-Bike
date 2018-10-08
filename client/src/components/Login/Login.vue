@@ -5,15 +5,19 @@
         <div class="login-br"></div>
         <div class="login-indhold">
                     <div>
-                        <p>E-mail</p>
+                        <p class="login-info" >E-mail</p>
                         <input :class="{invalid: $v.email.$error}" @blur="$v.email.$touch()" v-model="email" type="text">
-                        {{errors.loginEmail}}
+                        <p class="login-error">
+                            {{errors.loginEmail}}
+                        </p>
 
                     </div>
                     <div>
-                        <p>Password</p>
+                        <p class="login-info">Password</p>
                         <input :class="{invalid: $v.password.$error}" @blur="$v.password.$touch()" type="password" v-model="password">
-                        {{errors.loginPassword}}
+                        <p class="login-error">
+                            {{errors.loginPassword}}
+                        </p>
                     </div>
                 <button :class="{validKnap: !$v.$invalid}" :disabled="$v.$invalid" @click="login" >Login</button>
         </div>
@@ -80,11 +84,17 @@ h1 {
   padding-top: 10px;
 }
 
-.login-indhold p {
+.login-info {
   font-weight: bold;
   font-size: 13px;
   padding-bottom: 3px;
   color: rgb(53, 53, 53);
+}
+
+.login-error {
+  color: rgb(255, 83, 83);
+  padding: 10px 0;
+  font-size: 13px;
 }
 
 input {

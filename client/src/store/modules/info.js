@@ -25,6 +25,9 @@ const mutations = {
     },
     setKategorier(state, kategorier) {
         state.kategorier = kategorier;
+    },
+    clearInfoBesked(state) {
+        state.infoBesked = {};
     }
 }
 
@@ -34,7 +37,7 @@ const actions = {
         axios.put("/kategorier", payload)
             .then(res => {
                 router.replace("/admin")
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -43,7 +46,7 @@ const actions = {
     hentKategorier({ commit }) {
         axios.get("/kategorier")
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setKategorier", res.data)
             })
             .catch(err => {
@@ -53,24 +56,36 @@ const actions = {
     nyNyhedsbrev({ commit }, payload) {
         axios.post("/nyhedsbrev", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setInfoBesked", { email: "Du er nu tilmeldt nyhedsbrevet" })
+                setTimeout(() => {
+                    commit("clearInfoBesked")
+                }, 3000)
             })
             .catch(err => {
                 commit("setInfoBesked", err.response.data)
-                console.log(err.response.data)
+                setTimeout(() => {
+                    commit("clearInfoBesked")
+                }, 3000)
+                // console.log(err.response.data)
             })
     },
     sletNyhedsbrev({ commit }, payload) {
         //console.log(payload)
         axios.post("/nyhedsbrev/slet", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setInfoBesked", res.data)
+                setTimeout(() => {
+                    commit("clearInfoBesked")
+                }, 3000)
             })
             .catch(err => {
                 commit("setInfoBesked", err.response.data)
-                console.log(err.response.data)
+                setTimeout(() => {
+                    commit("clearInfoBesked")
+                }, 3000)
+                // console.log(err.response.data)
             })
     },
     hentKontakt({ commit }) {
@@ -86,7 +101,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/kontakt", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setKontakt", res.data[0])
                 router.replace("/kontakt")
             })
@@ -108,7 +123,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/brugere/redaktion/" + payload.id, payload)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 router.replace("/admin/redigerredaktoer")
             })
             .catch(err => console.log(err))
@@ -117,7 +132,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/brugere/" + payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch("hentRedaktion")
             })
             .catch(err => console.log(err))

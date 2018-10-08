@@ -17,7 +17,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/beskeder/" + payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch("hentBeskeder")
             })
             .catch(err => {
@@ -28,7 +28,7 @@ const actions = {
         axios.get("/beskeder")
             .then(res => {
                 commit("setBeskeder", res.data)
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -37,7 +37,7 @@ const actions = {
     nyBesked({ commit }, payload) {
         axios.post("/beskeder", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => {
                 console.log(err)

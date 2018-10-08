@@ -30,26 +30,34 @@ const mutations = {
     },
     loginFejl(state, err) {
         state.loginErrors = err;
+    },
+    clearLoginErrors(state) {
+        state.loginErrors = {}
     }
 }
 
 const actions = {
     login({ commit }, payload) {
-        console.log(payload)
+        // console.log(payload)
         axios.post("/brugere/login", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setBruger", res.data)
                 router.replace("/admin");
             })
-            .catch(err => commit("loginFejl", err.response.data))
+            .catch(err => {
+                commit("loginFejl", err.response.data)
+                setTimeout(() => {
+                    commit("clearLoginErrors")
+                }, 3000)
+            })
     },
     register({ state }, payload) {
         //console.log(payload)
         state.idToken ? axios.defaults.headers.common["Authorization"] = state.idToken : null;
         axios.post("/brugere/register", payload)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 router.replace("/admin")
             })
             .catch(err => console.log(err))

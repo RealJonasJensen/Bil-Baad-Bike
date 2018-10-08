@@ -31,7 +31,7 @@ const actions = {
         //console.log(payload)
         axios.post("/sponsor/priser", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 router.replace("/admin/priser")
             })
             .catch(err => console.log(err))
@@ -40,7 +40,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/sponsor/priser/" + payload.id, payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 router.replace("/admin/priser")
             })
             .catch(err => console.log(err))
@@ -49,7 +49,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/sponsor/priser/" + payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch("hentSponsor")
                 router.replace("/admin/priser");
             })
@@ -57,10 +57,10 @@ const actions = {
     },
     hentEnPris({ commit }, payload) {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
-        console.log(payload)
+        // console.log(payload)
         axios.get("/sponsor/priser/" + payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setEnPris", res.data[0]);
             })
             .catch(err => {
@@ -72,7 +72,7 @@ const actions = {
         axios.get("/sponsor")
             .then(res => {
                 commit("setSponsorLoading");
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setSponsor", res.data[0])
             })
             .catch(err => {
@@ -84,7 +84,7 @@ const actions = {
         commit("setSponsorLoading");
         axios.get("/reklamer")
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setSponsorBilleder", res.data)
             })
             .catch(err => {
@@ -96,7 +96,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.put("/sponsor", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 alert("Sponsor Tekst Rettet!")
                 router.replace("/admin/sponsor")
             })
@@ -108,7 +108,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.post("/reklamer", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 alert("Sponsor Oprettet!")
                 router.replace("/admin/sponsor")
             })
@@ -120,7 +120,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/reklamer/" + payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch("hentAlleSponsorBilleder")
             })
             .catch(err => {

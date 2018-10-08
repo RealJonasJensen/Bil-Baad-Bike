@@ -37,7 +37,7 @@ Vue.filter("kategori", (kategori) => {
 })
 
 Vue.filter("overskrift", (value, overskrift, path) => {
-    console.log(overskrift, path)
+    // console.log(overskrift, path)
     if (path !== "/") return overskrift
     else {
         return overskrift.substring(0, 27) + " ...";

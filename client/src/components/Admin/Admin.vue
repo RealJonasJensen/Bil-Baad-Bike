@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="admin-main-sti" > <span>{{bruger.type === "admin" ? "ADMIN" : "REDAKTØR"}}</span></p>
+        <p class="admin-main-sti" > <span>{{bruger.type === "admin" ? "Admin" : "Redaktør"}}</span></p>
         <h1 class="admin-main-h1" >{{bruger.type === "admin" ? "ADMIN" : "REDAKTØR"}}</h1>
         <div class="admin-main-br"></div>
         <div class="admin-main-indhold">
@@ -78,6 +78,10 @@ export default {
   border-radius: 5px;
   cursor: pointer;
   margin: 10px 0;
+}
+
+.admin-main-btn:hover {
+  background-color: rgba(53, 53, 53, 0.2);
 }
 
 .paginate-links {

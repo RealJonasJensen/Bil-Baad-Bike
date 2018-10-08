@@ -32,7 +32,7 @@ export default {
         const fd = new FormData();
         fd.append("billede", this.billede);
         fd.append("id", this.redaktoer._id);
-        console.log(fd);
+        // console.log(fd);
         const data = {
           data: fd,
           id: this.redaktoer._id
@@ -52,7 +52,7 @@ export default {
     }
   },
   created() {
-    console.log();
+    // console.log();
     this.$store.dispatch("hentEnRedaktoer", this.$route.path.split("/")[3]);
   }
 };

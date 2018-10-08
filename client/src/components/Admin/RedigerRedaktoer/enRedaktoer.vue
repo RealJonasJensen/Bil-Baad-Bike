@@ -114,7 +114,7 @@ export default {
     }
   },
   created() {
-    console.log();
+    // console.log();
     this.$store.dispatch("hentEnRedaktoer", this.$route.path.split("/")[3]);
   }
 };

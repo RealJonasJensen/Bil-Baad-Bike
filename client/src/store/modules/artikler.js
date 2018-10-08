@@ -57,7 +57,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/logs/" + payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch("hentLogs")
             })
             .catch(err => {
@@ -79,7 +79,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.post("/logs", payload)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -91,7 +91,7 @@ const actions = {
             .then(res => {
                 commit("setArtiklerLoading")
                 commit("setSoeg", res.data)
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => {
                 commit("setArtiklerLoading")
@@ -131,7 +131,7 @@ const actions = {
                 }
                 dispatch("nyLog", data)
                 router.replace("/")
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => {
                 commit("setArtiklerLoading")
@@ -152,7 +152,7 @@ const actions = {
                     tekst: "slettede"
                 }
                 dispatch("nyLog", data)
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch(err => {
                 console.log(err)
@@ -171,7 +171,7 @@ const actions = {
                 }
                 dispatch("nyLog", data)
                 router.replace("/admin/rediger")
-                console.log(res.data)
+                // console.log(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -182,7 +182,7 @@ const actions = {
         store.getters.idToken ? axios.defaults.headers.common["Authorization"] = store.getters.idToken : null;
         axios.delete("/artikler/" + payload.artikelId + "/kommentar/" + payload.kommentarId)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch("hentEn", res.data._id)
             })
             .catch(err => console.log(err))
@@ -200,7 +200,7 @@ const actions = {
         //console.log(payload)
         axios.post("/artikler/" + payload.data.id + "/kommentar", payload.data)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 commit("setKommentar", res.data)
             })
             .catch(err => {
@@ -245,7 +245,7 @@ const actions = {
     },
     hentKategori({ commit }, payload) {
         commit("setArtiklerLoading")
-        console.log(payload)
+        // console.log(payload)
         axios.get("/artikler/kategori/" + payload)
             .then(res => {
                 commit("setArtiklerLoading")

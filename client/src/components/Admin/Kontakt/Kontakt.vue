@@ -105,7 +105,7 @@ export default {
   created() {
     this.$store.dispatch("hentKontakt");
     this.setData();
-    console.log("update");
+    // console.log("update");
   }
 };
 </script>

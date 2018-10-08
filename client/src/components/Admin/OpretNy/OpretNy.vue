@@ -59,7 +59,7 @@ export default {
         forfatterNavn: this.bruger.navn
       };
       this.$store.dispatch("opretNy", data);
-      console.log(data);
+      //   console.log(data);
     }
   },
   validations: {

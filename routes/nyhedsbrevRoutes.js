@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
 // @desc     Remove email from nyhedsbrev
 // @access   Public
 router.post("/slet", (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const { errors, isValid } = validateNyhedsbrevInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors)
